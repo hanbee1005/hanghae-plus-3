@@ -1,0 +1,23 @@
+spring:
+  profiles:
+    default: local
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3006/hanghae
+    username: test
+    password: 1234
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  health:
+    diskspace:
+      enabled: false
