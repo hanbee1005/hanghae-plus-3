@@ -6,9 +6,6 @@ on:
 
 env:
   SPRING_PROFILE: dev
-  ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-  ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY_NAME }}
-  IMAGE_TAG: ${{ github.sha }}
 
 jobs:
   build-and-push-ecr:
@@ -55,6 +52,10 @@ jobs:
 
       - name: Build, tag, and push image to Amazon ECR # 4. image 빌드 및 ECR에 Push 수행
         id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY_NAME }}
+          IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
