@@ -76,8 +76,18 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Pull image from Amazon ECR and restart container
-        run: |
-          docker pull ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
-          docker stop ${{ env.SERVICE_NAME}} && docker rm ${{ env.SERVICE_NAME}}
-          docker run -d --name ${{ env.SERVICE_NAME}} -p 8080:8080 --restart unless-stopped ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: task-definition.json
+          container-name: container-hanghae-plus-3
+          image: ${{ steps.build-image.outputs.image }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: service-hanghae-plus-3
+          cluster: DevHanghaePlus3
+          wait-for-service-stability: true
