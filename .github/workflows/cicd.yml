@@ -62,7 +62,7 @@ jobs:
 
   deploy-ecs:
     needs: build-and-push-ecr
-    runs-on: [ self-hosted, label-ecr-test ]
+    runs-on: ubuntu-latest
 
     steps:
       - name: Configure AWS credentials
