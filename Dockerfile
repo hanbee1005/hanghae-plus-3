@@ -9,4 +9,4 @@ RUN chmod +x /${SERVICE_NAME}.jar
 COPY docker-entrypoint.sh .
 RUN chmod +x docker-entrypoint.sh
 
-ENTRYPOINT ["java", "-Dspring.profiles.active=${SPRING_PROFILE_ACTIVE}", "-jar", "/${SERVICE_NAME}.jar"]
+ENTRYPOINT ["java", "-Dspring.profiles.active=${SPRING_PROFILE_ACTIVE}", "-jar", "/hanghae-plus-3.jar"]
