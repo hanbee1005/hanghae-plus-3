@@ -76,18 +76,23 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Fill in the new image ID in the Amazon ECS task definition
-        id: task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
-          task-definition: task-definition.json
-          container-name: hanghae-plus-3
-          image: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+      - name: Download task definition
+        run: |
+          aws ecs describe-task-definition --task-definition ${{ secrets.ECS_TASK_DEFINITION }} \
+          --query taskDefinition > task-definition.json
 
-      - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: hanghae-api-dev-svc
-          cluster: hanghae-api-dev-cluster
-          wait-for-service-stability: true
+#      - name: Fill in the new image ID in the Amazon ECS task definition
+#        id: task-def
+#        uses: aws-actions/amazon-ecs-render-task-definition@v1
+#        with:
+#          task-definition: task-definition.json
+#          container-name: hanghae-plus-3
+#          image: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+#
+#      - name: Deploy Amazon ECS task definition
+#        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+#        with:
+#          task-definition: ${{ steps.task-def.outputs.task-definition }}
+#          service: hanghae-api-dev-svc
+#          cluster: hanghae-api-dev-cluster
+#          wait-for-service-stability: true

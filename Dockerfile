@@ -8,7 +8,5 @@ COPY build/libs/*.jar /${SERVICE_NAME}.jar
 RUN chmod +x /${SERVICE_NAME}.jar
 COPY docker-entrypoint.sh .
 RUN chmod +x docker-entrypoint.sh
-COPY task-definition.json .
-RUN chmod +x task-definition.json
 
 ENTRYPOINT ["java", "-Dspring.profiles.active=${SPRING_PROFILE_ACTIVE}", "-jar", "/hanghae-plus-3.jar"]
