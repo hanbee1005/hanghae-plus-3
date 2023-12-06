@@ -4,6 +4,7 @@
   "networkMode": "awsvpc",
   "containerDefinitions": [
     {
+      "name": "hanghae-plus-3",
       "portMappings": [
         {
           "containerPort": 8080,
