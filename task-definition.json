@@ -4,8 +4,6 @@
   "networkMode": "awsvpc",
   "containerDefinitions": [
     {
-      "name": "container-hanghae-plus-3",
-      "image": "$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG",
       "portMappings": [
         {
           "containerPort": 8080,
