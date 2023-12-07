@@ -98,11 +98,14 @@ jobs:
 #          aws ecs describe-task-definition --task-definition ${{ secrets.ECS_TASK_DEFINITION }} \
 #          --query taskDefinition > task-definition.json
 
+      - name: List files
+        run: ls -R
+
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: ./server/task-definition.json
+          task-definition: task-definition.json
           container-name: hanghae-plus-3
           image: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
