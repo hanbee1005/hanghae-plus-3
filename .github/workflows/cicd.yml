@@ -111,7 +111,7 @@ jobs:
         with:
           task-definition: ${{ steps.retrieve-task-def.outputs.task-def-file }}
           container-name: hanghae-plus-3
-          image: ${{ steps.build-image.outputs.image }}
+          image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
