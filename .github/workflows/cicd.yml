@@ -66,7 +66,7 @@ jobs:
         with:
           task-definition: task-definition.json
           container-name: hanghae-plus-3
-          image: ${{env.ECR_REGISTRY}}/${{env.ECR_REPOSITORY}}:${{env.IMAGE_TAG}}
+          image: ${{ steps.build-image.outputs.image }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
@@ -76,22 +76,22 @@ jobs:
           cluster: hanghae-api-dev-cluster
           wait-for-service-stability: true
 
-#  deploy-ecs:
-#    needs: build-and-push-ecr
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: Configure AWS credentials
-#        uses: aws-actions/configure-aws-credentials@v1
-#        with:
-#          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#          aws-region: ap-northeast-2
-#
-#      - name: Login to Amazon ECR
-#        id: login-ecr
-#        uses: aws-actions/amazon-ecr-login@v1
-#
+  deploy-ecs:
+    needs: build-and-push-ecr
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
 #      - name: Download task definition
 #        run: |
 #          aws ecs describe-task-definition --task-definition ${{ secrets.ECS_TASK_DEFINITION }} \
