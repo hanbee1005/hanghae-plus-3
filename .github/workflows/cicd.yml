@@ -43,6 +43,7 @@ jobs:
       - name: Show Current Time
         run: echo "CurrentTime=${{steps.current-time.outputs.formattedTime}}"
 
+      ## AWS login
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -54,6 +55,7 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
+      ## 도커 이미지 빌드 후 ECR로 푸시합니다. (AWS ECR에서 확인 가능합니다.)
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
         run: |
@@ -66,6 +68,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      ## 다시 로그인
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -77,6 +80,7 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
+      ## 여기서 기존 task-definition 파일을 가져와 새로운 task-definition 파일을 생성합니다.
       - name: Retrieve most recent ECS task definition JSON file
         id: retrieve-task-def
         run: |
@@ -92,6 +96,7 @@ jobs:
           cat task-definition.json
           echo "task-def-file=task-definition.json" >> $GITHUB_OUTPUT
 
+      ## 여기서 task-definition 파일에 새로운 도커 이미지를 추가합니다.
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
@@ -100,6 +105,7 @@ jobs:
           container-name: hanghae-plus-3
           image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
 
+      ## ECS로 배포합니다.
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
