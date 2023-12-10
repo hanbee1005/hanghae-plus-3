@@ -1,4 +1,4 @@
-package com.hanghae.hanghaeplus3.restcontroller;
+package com.hanghae.hanghaeplus3.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
