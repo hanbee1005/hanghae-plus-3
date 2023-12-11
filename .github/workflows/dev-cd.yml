@@ -1,8 +1,7 @@
 on:
   push:
     branches:
-      - main
-      - develop
+      - release/*
 
 env:
   SERVICE_NAME: hanghae-plus-3
