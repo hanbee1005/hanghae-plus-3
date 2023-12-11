@@ -8,5 +8,15 @@
 - MySQL, Redis, JPA
 
 ## Chapter 1. CI/CD 배포 파이프라인 구축
+### 환경 분리
+- local
+- dev
+- stg
+- prod
+
+### Github Action 분리
+- ```pr-ci.yml``` : 
+- ```dev-cd.yml``` : 
+- ```prod-cd.yml``` : 
 
 ## Chapter 2. TDD 서버 구축
