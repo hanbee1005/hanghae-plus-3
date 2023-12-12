@@ -1,7 +1,9 @@
 package com.hanghae.hanghaeplus3.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
+@Getter
 @Entity
 @Table(name = "item")
 public class ItemEntity extends BaseTimeEntity {
