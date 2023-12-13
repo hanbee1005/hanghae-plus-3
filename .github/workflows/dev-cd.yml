@@ -80,28 +80,27 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       ## 여기서 기존 task-definition 파일을 가져와 새로운 task-definition 파일을 생성합니다.
-#      - name: Retrieve most recent ECS task definition JSON file
-#        id: retrieve-task-def
-#        run: |
-#          aws ecs describe-task-definition --task-definition ${{ secrets.ECS_TASK_DEFINITION }} --query taskDefinition | jq -r 'del(
-#            .taskDefinitionArn,
-#            .requiresAttributes,
-#            .compatibilities,
-#            .revision,
-#            .status,
-#            .registeredAt,
-#            .registeredBy
-#          )' > task-definition.json
-#          cat task-definition.json
-#          echo "task-def-file=task-definition.json" >> $GITHUB_OUTPUT
+      - name: Retrieve most recent ECS task definition JSON file
+        id: retrieve-task-def
+        run: |
+          aws ecs describe-task-definition --task-definition ${{ secrets.ECS_TASK_DEFINITION }} --query taskDefinition | jq -r 'del(
+            .taskDefinitionArn,
+            .requiresAttributes,
+            .compatibilities,
+            .revision,
+            .status,
+            .registeredAt,
+            .registeredBy
+          )' > task-definition.json
+          cat task-definition.json
+          echo "task-def-file=task-definition.json" >> $GITHUB_OUTPUT
 
       ## 여기서 task-definition 파일에 새로운 도커 이미지를 추가합니다.
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-#          task-definition: ${{ steps.retrieve-task-def.outputs.task-def-file }}
-          task-definition: task-definition.json
+          task-definition: ${{ steps.retrieve-task-def.outputs.task-def-file }}
           container-name: hhplus-dev
           image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
 
