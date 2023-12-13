@@ -2,9 +2,6 @@ on:
   pull_request:
     branches:
       - develop
-  push:
-    branches:
-      - develop
 
 env:
   DEV_DB_URL: ${{ secrets.DEV_DB_URL }}
