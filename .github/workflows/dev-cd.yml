@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - release/*
+      - develop
 
 env:
   SERVICE_NAME: hanghae-plus-3
@@ -62,53 +62,53 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
-  deploy-ecs:
-    needs: build-and-push-ecr
-    runs-on: ubuntu-latest
-
-    steps:
-      ## 다시 로그인
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-northeast-2
-
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
-
-      ## 여기서 기존 task-definition 파일을 가져와 새로운 task-definition 파일을 생성합니다.
-      - name: Retrieve most recent ECS task definition JSON file
-        id: retrieve-task-def
-        run: |
-          aws ecs describe-task-definition --task-definition ${{ secrets.ECS_TASK_DEFINITION }} --query taskDefinition | jq -r 'del(
-            .taskDefinitionArn,
-            .requiresAttributes,
-            .compatibilities,
-            .revision,
-            .status,
-            .registeredAt,
-            .registeredBy
-          )' > task-definition.json
-          cat task-definition.json
-          echo "task-def-file=task-definition.json" >> $GITHUB_OUTPUT
-
-      ## 여기서 task-definition 파일에 새로운 도커 이미지를 추가합니다.
-      - name: Fill in the new image ID in the Amazon ECS task definition
-        id: task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
-          task-definition: ${{ steps.retrieve-task-def.outputs.task-def-file }}
-          container-name: hanghae-plus-3
-          image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
-
-      ## ECS로 배포합니다.
-      - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: hanghae-api-dev-svc
-          cluster: hanghae-api-dev-cluster
-          wait-for-service-stability: true
+#  deploy-ecs:
+#    needs: build-and-push-ecr
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      ## 다시 로그인
+#      - name: Configure AWS credentials
+#        uses: aws-actions/configure-aws-credentials@v2
+#        with:
+#          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          aws-region: ap-northeast-2
+#
+#      - name: Login to Amazon ECR
+#        id: login-ecr
+#        uses: aws-actions/amazon-ecr-login@v2
+#
+#      ## 여기서 기존 task-definition 파일을 가져와 새로운 task-definition 파일을 생성합니다.
+#      - name: Retrieve most recent ECS task definition JSON file
+#        id: retrieve-task-def
+#        run: |
+#          aws ecs describe-task-definition --task-definition ${{ secrets.ECS_TASK_DEFINITION }} --query taskDefinition | jq -r 'del(
+#            .taskDefinitionArn,
+#            .requiresAttributes,
+#            .compatibilities,
+#            .revision,
+#            .status,
+#            .registeredAt,
+#            .registeredBy
+#          )' > task-definition.json
+#          cat task-definition.json
+#          echo "task-def-file=task-definition.json" >> $GITHUB_OUTPUT
+#
+#      ## 여기서 task-definition 파일에 새로운 도커 이미지를 추가합니다.
+#      - name: Fill in the new image ID in the Amazon ECS task definition
+#        id: task-def
+#        uses: aws-actions/amazon-ecs-render-task-definition@v1
+#        with:
+#          task-definition: ${{ steps.retrieve-task-def.outputs.task-def-file }}
+#          container-name: hanghae-plus-3
+#          image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+#
+#      ## ECS로 배포합니다.
+#      - name: Deploy Amazon ECS task definition
+#        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+#        with:
+#          task-definition: ${{ steps.task-def.outputs.task-definition }}
+#          service: hanghae-api-dev-svc
+#          cluster: hanghae-api-dev-cluster
+#          wait-for-service-stability: true
