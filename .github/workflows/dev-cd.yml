@@ -103,8 +103,7 @@ jobs:
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-#          task-definition: ${{ steps.retrieve-task-def.outputs.task-def-file }}
-          task-definition: ../task-definition.json
+          task-definition: ${{ steps.retrieve-task-def.outputs.task-def-file }}
           container-name: hhplus-dev
           image: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
 
