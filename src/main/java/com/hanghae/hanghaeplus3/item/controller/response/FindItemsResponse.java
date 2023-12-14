@@ -8,7 +8,5 @@ public record FindItemsResponse(
         List<ItemResponse> items
 ) {
     @Builder
-    public FindItemsResponse(List<ItemResponse> items) {
-        this.items = items;
-    }
+    public FindItemsResponse {}
 }
