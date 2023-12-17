@@ -1,17 +1,17 @@
-package com.hanghae.hanghaeplus3.item.service.domain;
+package com.hanghae.hanghaeplus3.product.service.domain;
 
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class Item {
+public class Product {
     private Long id;
     private String name;
     private Integer price;
     private Integer quantity;
 
     @Builder
-    public Item(Long id, String name, Integer price, Integer quantity) {
+    public Product(Long id, String name, Integer price, Integer quantity) {
         this.id = id;
         this.name = name;
         this.price = price;

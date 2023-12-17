@@ -1,4 +1,4 @@
-package com.hanghae.hanghaeplus3.item.controller.response;
+package com.hanghae.hanghaeplus3.product.controller.response;
 
 import lombok.Builder;
 
