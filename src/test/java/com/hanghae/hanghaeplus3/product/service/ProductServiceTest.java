@@ -1,20 +1,19 @@
-package com.hanghae.hanghaeplus3.item.service;
+package com.hanghae.hanghaeplus3.product.service;
 
-import com.hanghae.hanghaeplus3.item.service.domain.Item;
+import com.hanghae.hanghaeplus3.product.service.domain.Product;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
-class ItemServiceTest {
+class ProductServiceTest {
 
-    private final ItemService service;
+    private final ProductService service;
 
-    private ItemServiceTest() {
-        service = new ItemService(new FakeItemRepository());
+    private ProductServiceTest() {
+        service = new ProductService(new FakeProductRepository());
     }
 
     @Test
@@ -23,10 +22,10 @@ class ItemServiceTest {
         // given
 
         // when
-        List<Item> items = service.findItems();
+        List<Product> products = service.findProducts();
 
         // then
-        assertThat(items).isNotEmpty();
+        assertThat(products).isNotEmpty();
     }
 
     @Test
