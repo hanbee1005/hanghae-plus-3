@@ -16,7 +16,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     @Override
     public List<Account> findAccountsOf(Long memberId) {
         return repository.findByMemberId(memberId).stream()
-                .map(AccountEntity::toDomain)
+                .map(AccountEntity::toAccount)
                 .toList();
     }
 
@@ -24,11 +24,11 @@ public class AccountRepositoryImpl implements AccountRepository {
     public Account findAccountOf(Long accountId) {
         return repository.findById(accountId)
                 .orElseThrow(IllegalArgumentException::new)
-                .toDomain();
+                .toAccount();
     }
 
     @Override
-    public void updateAccount(Account account) {
-
+    public void save(Account account) {
+        repository.save(AccountEntity.create(account));
     }
 }

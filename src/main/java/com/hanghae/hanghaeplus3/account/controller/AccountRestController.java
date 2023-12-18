@@ -1,8 +1,11 @@
 package com.hanghae.hanghaeplus3.account.controller;
 
 import com.hanghae.hanghaeplus3.account.controller.request.BalanceChargeRequest;
+import com.hanghae.hanghaeplus3.account.controller.response.ChargeBalanceResponse;
+import com.hanghae.hanghaeplus3.account.controller.response.FindBalanceResponse;
 import com.hanghae.hanghaeplus3.account.service.AccountService;
 import com.hanghae.hanghaeplus3.account.service.domain.Account;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +22,12 @@ public class AccountRestController {
     @GetMapping("/balance")
     public ResponseEntity<?> findBalancesOf(@RequestHeader(name = "Authorization") Long memberId) {
         List<Account> accounts = accountService.findBalanceOf(memberId);
-        return ResponseEntity.ok("잔액 조회");
+        return ResponseEntity.ok(FindBalanceResponse.create(accounts));
     }
 
     @PutMapping("/balance/charge")
-    public ResponseEntity<?> chargeBalanceOf(@RequestBody BalanceChargeRequest request) {
-        return ResponseEntity.ok("잔액 충전");
+    public ResponseEntity<?> chargeBalanceOf(@RequestBody @Valid BalanceChargeRequest request) {
+        Long chargedAccountId = accountService.chargeBalance(request.memberId(), request.accountId(), request.amount());
+        return ResponseEntity.ok(ChargeBalanceResponse.create(chargedAccountId));
     }
 }

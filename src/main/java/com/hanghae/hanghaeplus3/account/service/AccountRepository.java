@@ -7,5 +7,5 @@ import java.util.List;
 public interface AccountRepository {
     List<Account> findAccountsOf(Long memberId);
     Account findAccountOf(Long accountId);
-    void updateAccount(Account account);
+    void save(Account account);
 }

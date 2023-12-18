@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Getter
 public class Account {
@@ -20,7 +21,13 @@ public class Account {
         this.createdAt = createdAt;
     }
 
-    public void chargeBalance(long amount) {
+    public void checkOwner(Long memberId) {
+        if (!Objects.equals(memberId, this.memberId)) {
+            throw new IllegalArgumentException("사용자의 계좌가 아닙니다.");
+        }
+    }
+
+    public void charge(long amount) {
         balance += amount;
     }
 }

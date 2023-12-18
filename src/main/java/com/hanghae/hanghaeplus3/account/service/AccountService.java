@@ -21,11 +21,12 @@ public class AccountService {
         return accountRepository.findAccountsOf(memberId);
     }
 
-
     public Long chargeBalance(Long memberId, Long accountId, Long amount) {
         Account account = findAccount(accountId);
-        account.chargeBalance(amount);
-        accountRepository.updateAccount(account);
+        account.checkOwner(memberId);
+        account.charge(amount);
+
+        accountRepository.save(account);
 
         return account.getId();
     }
