@@ -1,6 +1,6 @@
-package com.hanghae.hanghaeplus3.member.service;
+package com.hanghae.hanghaeplus3.account.service;
 
-import com.hanghae.hanghaeplus3.member.service.domain.Account;
+import com.hanghae.hanghaeplus3.account.service.domain.Account;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class MemberService {
+public class AccountService {
     private final AccountRepository accountRepository;
 
     public Account findAccount(Long accountId) {

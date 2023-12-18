@@ -1,6 +1,6 @@
-package com.hanghae.hanghaeplus3.member.repository;
+package com.hanghae.hanghaeplus3.account.repository;
 
-import com.hanghae.hanghaeplus3.member.repository.entity.AccountEntity;
+import com.hanghae.hanghaeplus3.account.repository.entity.AccountEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

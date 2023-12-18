@@ -1,6 +1,6 @@
-package com.hanghae.hanghaeplus3.member.service;
+package com.hanghae.hanghaeplus3.account.service;
 
-import com.hanghae.hanghaeplus3.member.service.domain.Account;
+import com.hanghae.hanghaeplus3.account.service.domain.Account;
 
 import java.util.List;
 

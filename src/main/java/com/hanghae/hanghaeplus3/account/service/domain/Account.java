@@ -1,4 +1,4 @@
-package com.hanghae.hanghaeplus3.member.service.domain;
+package com.hanghae.hanghaeplus3.account.service.domain;
 
 import lombok.Builder;
 import lombok.Getter;

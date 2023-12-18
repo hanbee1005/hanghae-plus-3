@@ -1,6 +1,6 @@
-package com.hanghae.hanghaeplus3.member.repository.entity;
+package com.hanghae.hanghaeplus3.account.repository.entity;
 
-import com.hanghae.hanghaeplus3.member.service.domain.Account;
+import com.hanghae.hanghaeplus3.account.service.domain.Account;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 
