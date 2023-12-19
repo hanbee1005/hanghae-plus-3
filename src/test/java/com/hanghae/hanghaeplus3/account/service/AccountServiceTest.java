@@ -9,7 +9,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class AccountServiceTest {
-    private final AccountService accountService = new AccountService(new FakeAccountRepository());
+    private final AccountService accountService = new AccountService(new FakeAccountRepository(), new FakeMemberReader());
 
     @Test
     @DisplayName("계좌 잔고 조회")
