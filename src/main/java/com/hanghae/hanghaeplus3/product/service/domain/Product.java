@@ -23,8 +23,8 @@ public class Product {
     }
 
     public void minusQuantity(Integer amount) {
-        if (!hasQuantity()) {
-            throw new IllegalStateException("재고가 없습니다.");
+        if (!hasQuantity() || !canBuy(amount)) {
+            throw new IllegalArgumentException("재고가 없습니다.");
         }
 
         quantity -= amount;
@@ -32,5 +32,8 @@ public class Product {
 
     private boolean hasQuantity() {
         return quantity > 0;
+    }
+    private boolean canBuy(Integer amount) {
+        return this.quantity >= amount;
     }
 }

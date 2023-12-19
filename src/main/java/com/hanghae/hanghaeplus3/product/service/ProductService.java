@@ -15,7 +15,7 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     public List<Product> findProducts() {
-        return productRepository.findProducts();
+        return productRepository.findAll();
     }
 
     public List<Product> findPopulars(int duration, int count) {

@@ -14,12 +14,31 @@ public class ProductRepositoryImpl implements ProductRepository {
     private final ProductJpaRepository repository;
 
     @Override
-    public List<Product> findProducts() {
-        return repository.findAll().stream().map(ProductEntity::toDomain).toList();
+    public Product findById(Long productId) {
+        return repository.findById(productId)
+                .orElseThrow(() -> new IllegalArgumentException("Not Found Product"))
+                .toProduct();
+    }
+
+    @Override
+    public List<Product> findAllById(List<Long> productIds) {
+        return repository.findAllById(productIds).stream()
+                .map(ProductEntity::toProduct)
+                .toList();
+    }
+
+    @Override
+    public List<Product> findAll() {
+        return repository.findAll().stream().map(ProductEntity::toProduct).toList();
     }
 
     @Override
     public List<Product> findPopulars(int duration, int count) {
         return null;
+    }
+
+    @Override
+    public void saveAll(List<Product> products) {
+        repository.saveAll(products.stream().map(ProductEntity::of).toList());
     }
 }
