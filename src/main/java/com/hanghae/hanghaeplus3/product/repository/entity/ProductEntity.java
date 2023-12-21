@@ -1,21 +1,19 @@
 package com.hanghae.hanghaeplus3.product.repository.entity;
 
+import com.hanghae.hanghaeplus3.BaseTimeEntity;
 import com.hanghae.hanghaeplus3.product.service.domain.Product;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-
-import java.time.LocalDateTime;
 
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "product")
-public class ProductEntity {
+public class ProductEntity extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,8 +30,8 @@ public class ProductEntity {
     @Column
     private Long creator;
 
-    @CreatedDate
-    private LocalDateTime createdAt;
+    @Column
+    private Long lastModifier;
 
     public static ProductEntity of(Product product) {
         return ProductEntity.builder()
@@ -41,7 +39,6 @@ public class ProductEntity {
                 .name(product.getName())
                 .price(product.getPrice())
                 .quantity(product.getQuantity())
-                .createdAt(LocalDateTime.now())
                 .build();
     }
 

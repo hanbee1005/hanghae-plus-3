@@ -1,13 +1,12 @@
 package com.hanghae.hanghaeplus3.order.repository.entity;
 
+import com.hanghae.hanghaeplus3.BaseTimeEntity;
 import com.hanghae.hanghaeplus3.order.constant.OrderStatus;
 import com.hanghae.hanghaeplus3.order.service.domain.Order;
 import com.hanghae.hanghaeplus3.order.service.domain.OrderProduct;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "orders")
-public class OrderEntity {
+public class OrderEntity extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,15 +35,14 @@ public class OrderEntity {
     @Column
     private Long creator;
 
-    @CreatedDate
-    private LocalDateTime createdAt;
+    @Column
+    private Long lastModifier;
 
     public static OrderEntity create(Order order) {
         OrderEntity newOrder = OrderEntity.builder()
                 .status(order.getStatus())
                 .memberId(order.getMemberId())
                 .creator(order.getMemberId())
-                .createdAt(LocalDateTime.now())
                 .build();
 
         newOrder.addProducts(order.getProducts());

@@ -1,14 +1,12 @@
 package com.hanghae.hanghaeplus3.member.repository.entity;
 
+import com.hanghae.hanghaeplus3.BaseTimeEntity;
 import com.hanghae.hanghaeplus3.member.service.domain.Member;
 import jakarta.persistence.*;
-import org.springframework.data.annotation.CreatedDate;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "member")
-public class MemberEntity {
+public class MemberEntity extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,8 +17,8 @@ public class MemberEntity {
     @Column
     private Long creator;
 
-    @CreatedDate
-    private LocalDateTime createdAt;
+    @Column
+    private Long lastModifier;
 
     public Member toMember() {
         return Member.builder()
