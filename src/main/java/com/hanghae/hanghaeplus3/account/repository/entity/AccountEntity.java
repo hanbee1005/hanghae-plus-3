@@ -38,13 +38,8 @@ public class AccountEntity extends BaseTimeEntity {
                 .build();
     }
 
-    public static AccountEntity update(Account account) {
-        return AccountEntity.builder()
-                .id(account.getId())
-                .memberId(account.getMemberId())
-                .balance(account.getBalance())
-                .lastModifier(account.getMemberId())
-                .build();
+    public void updateBalance(Long balance) {
+        this.balance += balance;
     }
 
     public Account toAccount() {

@@ -1,7 +1,7 @@
 package com.hanghae.hanghaeplus3.account.repository;
 
-import com.hanghae.hanghaeplus3.account.service.AccountRepository;
 import com.hanghae.hanghaeplus3.account.repository.entity.AccountEntity;
+import com.hanghae.hanghaeplus3.account.service.AccountRepository;
 import com.hanghae.hanghaeplus3.account.service.domain.Account;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -34,6 +34,7 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     @Override
     public void update(Account account) {
-        repository.save(AccountEntity.update(account));
+        repository.findById(account.getId())
+                .ifPresent(accountEntity -> accountEntity.updateBalance(account.getBalance()));
     }
 }
