@@ -1,6 +1,7 @@
 package com.hanghae.hanghaeplus3.product.controller;
 
 import com.hanghae.hanghaeplus3.product.service.ProductService;
+import com.hanghae.hanghaeplus3.product.service.domain.PopularProduct;
 import com.hanghae.hanghaeplus3.product.service.domain.Product;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ class ProductRestControllerTest {
     @DisplayName("상품 목록 조회")
     public void findProducts() throws Exception {
         // given
-        given(productService.findProducts()).willReturn(getMockItemList());
+        given(productService.findProducts()).willReturn(getMockProductList());
 
         // when
         mvc.perform(get("/products"))
@@ -43,7 +44,7 @@ class ProductRestControllerTest {
     @DisplayName("인기 상품 목록 조회")
     public void findPopulars() throws Exception {
         // given
-        given(productService.findPopulars(anyInt(), anyInt())).willReturn(getMockItemList());
+        given(productService.findPopulars(anyInt(), anyInt())).willReturn(getMockPopularProductList());
 
         // when
         mvc.perform(get("/products/popular"))
@@ -68,11 +69,19 @@ class ProductRestControllerTest {
         // then
     }
 
-    private List<Product> getMockItemList() {
+    private List<Product> getMockProductList() {
         return List.of(
                 Product.builder().id(1L).name("itemA").price(1000).quantity(10).build(),
                 Product.builder().id(2L).name("itemB").price(1500).quantity(5).build(),
                 Product.builder().id(3L).name("itemC").price(2000).quantity(13).build()
+        );
+    }
+
+    private List<PopularProduct> getMockPopularProductList() {
+        return List.of(
+                PopularProduct.builder().id(1L).name("itemA").soldTotalPrice(5000).soldTotalQuantity(5).build(),
+                PopularProduct.builder().id(2L).name("itemB").soldTotalPrice(4500).soldTotalQuantity(3).build(),
+                PopularProduct.builder().id(3L).name("itemC").soldTotalPrice(20000).soldTotalQuantity(10).build()
         );
     }
 }

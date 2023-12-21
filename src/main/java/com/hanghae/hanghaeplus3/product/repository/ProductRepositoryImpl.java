@@ -2,6 +2,7 @@ package com.hanghae.hanghaeplus3.product.repository;
 
 import com.hanghae.hanghaeplus3.product.repository.entity.ProductEntity;
 import com.hanghae.hanghaeplus3.product.service.ProductRepository;
+import com.hanghae.hanghaeplus3.product.service.domain.PopularProduct;
 import com.hanghae.hanghaeplus3.product.service.domain.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -33,7 +34,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public List<Product> findPopulars(int duration, int count) {
+    public List<PopularProduct> findPopulars(int duration, int count) {
         return null;
     }
 

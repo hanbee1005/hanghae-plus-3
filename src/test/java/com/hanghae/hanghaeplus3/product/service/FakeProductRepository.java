@@ -1,5 +1,6 @@
 package com.hanghae.hanghaeplus3.product.service;
 
+import com.hanghae.hanghaeplus3.product.service.domain.PopularProduct;
 import com.hanghae.hanghaeplus3.product.service.domain.Product;
 
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class FakeProductRepository implements ProductRepository {
     }
 
     @Override
-    public List<Product> findPopulars(int duration, int count) {
+    public List<PopularProduct> findPopulars(int duration, int count) {
         return null;
     }
 

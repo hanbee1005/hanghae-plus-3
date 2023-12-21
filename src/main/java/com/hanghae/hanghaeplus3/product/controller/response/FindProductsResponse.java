@@ -4,9 +4,9 @@ import lombok.Builder;
 
 import java.util.List;
 
-public record FindItemsResponse(
-        List<ItemResponse> items
+public record FindProductsResponse(
+        List<ProductResponse> products
 ) {
     @Builder
-    public FindItemsResponse {}
+    public FindProductsResponse {}
 }

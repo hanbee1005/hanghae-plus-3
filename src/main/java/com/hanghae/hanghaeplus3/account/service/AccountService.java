@@ -26,7 +26,7 @@ public class AccountService {
 
     @Transactional(readOnly = true)
     public List<Account> findBalanceOf(Long memberId) {
-        Member member = memberReader.getMember(memberId);// MemberRepository를 직접 주입받는 대신 이 형태를 사용하는게 괜찮을지...?
+        Member member = memberReader.getMember(memberId);  // 이미 회원이 있는지 확인하고 들어온다는 가정하에 필요 없는 부분 아닐까?
         return accountRepository.findAccountsOf(member.getId());
     }
 

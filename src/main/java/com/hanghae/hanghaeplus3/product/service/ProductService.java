@@ -1,5 +1,6 @@
 package com.hanghae.hanghaeplus3.product.service;
 
+import com.hanghae.hanghaeplus3.product.service.domain.PopularProduct;
 import com.hanghae.hanghaeplus3.product.service.domain.Product;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public List<Product> findPopulars(int duration, int count) {
+    public List<PopularProduct> findPopulars(int duration, int count) {
         return productRepository.findPopulars(duration, count);
     }
 }
