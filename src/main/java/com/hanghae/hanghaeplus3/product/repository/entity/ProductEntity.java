@@ -6,6 +6,9 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.time.LocalDateTime;
 
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -26,7 +29,11 @@ public class ProductEntity {
     @Column
     private Integer quantity;
 
+    @Column
+    private Long creator;
 
+    @CreatedDate
+    private LocalDateTime createdAt;
 
     public static ProductEntity of(Product product) {
         return ProductEntity.builder()
@@ -34,6 +41,7 @@ public class ProductEntity {
                 .name(product.getName())
                 .price(product.getPrice())
                 .quantity(product.getQuantity())
+                .createdAt(LocalDateTime.now())
                 .build();
     }
 
