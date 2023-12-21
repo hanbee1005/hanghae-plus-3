@@ -1,5 +1,6 @@
 package com.hanghae.hanghaeplus3.order.repository;
 
+import com.hanghae.hanghaeplus3.order.repository.entity.OrderEntity;
 import com.hanghae.hanghaeplus3.order.service.OrderRepository;
 import com.hanghae.hanghaeplus3.order.service.domain.Order;
 import lombok.RequiredArgsConstructor;
@@ -12,11 +13,14 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public Order findById(Long orderId) {
-        return null;
+        return repository.findById(orderId)
+                .orElseThrow(() -> new IllegalArgumentException("Not Found Order"))
+                .toOrder();
     }
 
     @Override
     public long save(Order order) {
-        return 0;
+        OrderEntity savedOrder = repository.save(OrderEntity.create(order));
+        return savedOrder.getId();
     }
 }
