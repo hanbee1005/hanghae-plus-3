@@ -26,6 +26,9 @@ public class AccountEntity {
     @Column
     Long balance;
 
+    @Column
+    Long creator;
+
     @CreatedDate
     LocalDateTime createdAt;
 
@@ -33,7 +36,16 @@ public class AccountEntity {
         return AccountEntity.builder()
                 .memberId(account.getMemberId())
                 .balance(account.getBalance())
+                .creator(account.getMemberId())
                 .createdAt(LocalDateTime.now())
+                .build();
+    }
+
+    public static AccountEntity update(Account account) {
+        return AccountEntity.builder()
+                .id(account.getId())
+                .memberId(account.getMemberId())
+                .balance(account.getBalance())
                 .build();
     }
 

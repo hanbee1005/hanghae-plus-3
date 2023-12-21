@@ -30,7 +30,7 @@ public class OrderEntity {
     private Long memberId;
 
     @Builder.Default
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
     private List<OrderProductEntity> products = new ArrayList<>();
 
     @Column

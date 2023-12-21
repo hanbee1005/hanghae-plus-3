@@ -31,4 +31,9 @@ public class AccountRepositoryImpl implements AccountRepository {
     public void save(Account account) {
         repository.save(AccountEntity.create(account));
     }
+
+    @Override
+    public void update(Account account) {
+        repository.save(AccountEntity.update(account));
+    }
 }

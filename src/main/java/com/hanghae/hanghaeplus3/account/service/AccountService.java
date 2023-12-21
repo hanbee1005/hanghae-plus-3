@@ -31,7 +31,7 @@ public class AccountService {
         account.checkOwner(memberId);
         account.charge(amount);
 
-        accountRepository.save(account);
+        accountRepository.update(account);
 
         return account.getId();
     }

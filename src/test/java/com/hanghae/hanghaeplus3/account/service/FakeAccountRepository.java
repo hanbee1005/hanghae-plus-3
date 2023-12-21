@@ -39,4 +39,9 @@ public class FakeAccountRepository implements AccountRepository {
     public void save(Account account) {
         store.put(account.getId(), account);
     }
+
+    @Override
+    public void update(Account account) {
+        store.put(account.getId(), account);
+    }
 }
