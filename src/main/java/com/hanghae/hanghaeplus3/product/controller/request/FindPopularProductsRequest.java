@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Positive;
 import lombok.Builder;
 import org.springframework.util.ObjectUtils;
 
+import java.time.LocalDate;
+
 public record FindPopularProductsRequest(
         @Positive
         Integer duration,
@@ -20,5 +22,9 @@ public record FindPopularProductsRequest(
         if (ObjectUtils.isEmpty(count)) {
             count = 5;
         }
+    }
+
+    public LocalDate getSearchDate() {
+        return LocalDate. now();
     }
 }

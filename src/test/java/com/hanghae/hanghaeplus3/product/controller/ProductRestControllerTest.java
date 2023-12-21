@@ -14,6 +14,7 @@ import org.springframework.util.MultiValueMap;
 
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -44,7 +45,7 @@ class ProductRestControllerTest {
     @DisplayName("인기 상품 목록 조회")
     public void findPopulars() throws Exception {
         // given
-        given(productService.findPopulars(anyInt(), anyInt())).willReturn(getMockPopularProductList());
+        given(productService.findPopulars(any(), anyInt(), anyInt())).willReturn(getMockPopularProductList());
 
         // when
         mvc.perform(get("/products/popular"))

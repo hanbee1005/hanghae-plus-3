@@ -36,8 +36,8 @@ public class ProductRestController {
 
     @GetMapping("/popular")
     public ResponseEntity<?> findPopulars(@Validated FindPopularProductsRequest request) {
-        LocalDate searchDate = LocalDate. now();
-        List<PopularProduct> popularProducts = productService.findPopulars(request.duration(), request.count());
+        LocalDate searchDate = request.getSearchDate();
+        List<PopularProduct> popularProducts = productService.findPopulars(searchDate, request.duration(), request.count());
 
         return ResponseEntity.ok(FindPopularProductsResponse.builder()
                 .startAt(searchDate.minusDays(request.duration()))

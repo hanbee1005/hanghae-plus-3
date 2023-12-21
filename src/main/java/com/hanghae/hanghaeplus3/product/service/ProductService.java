@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -19,7 +20,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public List<PopularProduct> findPopulars(int duration, int count) {
+    public List<PopularProduct> findPopulars(LocalDate searchDate, int duration, int count) {
         return productRepository.findPopulars(duration, count);
     }
 }
