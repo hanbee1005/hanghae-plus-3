@@ -28,6 +28,6 @@ public class AccountRestController {
     @PutMapping("/balance/charge")
     public ResponseEntity<?> chargeBalanceOf(@RequestBody @Valid BalanceChargeRequest request) {
         Long chargedAccountId = accountService.chargeBalance(request.memberId(), request.accountId(), request.amount());
-        return ResponseEntity.ok(ChargeBalanceResponse.create(chargedAccountId));
+        return ResponseEntity.ok(ChargeBalanceResponse.builder().accountId(chargedAccountId).build());
     }
 }
