@@ -4,6 +4,7 @@ import com.hanghae.hanghaeplus3.order.constant.OrderStatus;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,13 +14,15 @@ public class Order {
     private OrderStatus status;
     private Long memberId;
     private List<OrderProduct> products;
+    private LocalDateTime createdAt;
 
     @Builder
-    public Order(Long id, OrderStatus status, Long memberId, List<OrderProduct> products) {
+    public Order(Long id, OrderStatus status, Long memberId, List<OrderProduct> products, LocalDateTime createdAt) {
         this.id = id;
         this.status = status;
         this.memberId = memberId;
         this.products = products;
+        this.createdAt = createdAt;
     }
 
     public void checkOwner(Long memberId) {

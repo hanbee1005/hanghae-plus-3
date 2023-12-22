@@ -1,7 +1,10 @@
 package com.hanghae.hanghaeplus3.order.service;
 
 import com.hanghae.hanghaeplus3.order.service.domain.Order;
+import com.hanghae.hanghaeplus3.order.service.domain.OrderProduct;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -25,5 +28,10 @@ public class FakeOrderRepository implements OrderRepository {
 
         store.put(newOrder.getId(), newOrder);
         return newOrder.getId();
+    }
+
+    @Override
+    public List<OrderProduct> findOrderProductsIn(LocalDate searchDate, int duration) {
+        return null;
     }
 }
