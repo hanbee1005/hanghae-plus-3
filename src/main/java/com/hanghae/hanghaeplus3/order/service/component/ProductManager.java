@@ -26,7 +26,10 @@ public class ProductManager {
             orderProducts.stream()
                     .filter(op -> Objects.equals(op.getProductId(), p.getId()))
                     .findAny()
-                    .ifPresent(op -> p.minusQuantity(op.getQuantity()));
+                    .ifPresent(op -> {
+                        op.setNameAndPrice(p.getName(), p.getPrice());
+                        p.minusQuantity(op.getQuantity());
+                    });
         });
     }
 }

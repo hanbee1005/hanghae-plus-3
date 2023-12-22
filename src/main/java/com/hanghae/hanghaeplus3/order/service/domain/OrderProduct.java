@@ -17,4 +17,9 @@ public class OrderProduct {
         this.price = price;
         this.quantity = quantity;
     }
+
+    public void setNameAndPrice(String name, Integer price) {
+        this.name = name;
+        this.price = price;
+    }
 }
