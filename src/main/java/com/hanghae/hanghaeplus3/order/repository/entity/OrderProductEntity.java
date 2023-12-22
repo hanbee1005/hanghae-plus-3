@@ -4,9 +4,6 @@ import com.hanghae.hanghaeplus3.BaseTimeEntity;
 import com.hanghae.hanghaeplus3.order.service.domain.OrderProduct;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Builder
@@ -27,6 +24,12 @@ public class OrderProductEntity extends BaseTimeEntity {
     private Long productId;
 
     @Column
+    private String name;
+
+    @Column
+    private Integer price;
+
+    @Column
     private Integer quantity;
 
     @Column
@@ -38,6 +41,8 @@ public class OrderProductEntity extends BaseTimeEntity {
     public static OrderProductEntity create(OrderProduct orderProduct) {
         return OrderProductEntity.builder()
                 .productId(orderProduct.getProductId())
+                .name(orderProduct.getName())
+                .price(orderProduct.getPrice())
                 .quantity(orderProduct.getQuantity())
                 .build();
     }

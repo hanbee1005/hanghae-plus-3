@@ -17,7 +17,6 @@ public record PopularProductResponse(
         return PopularProductResponse.builder()
                 .id(product.getId())
                 .name(product.getName())
-                .soldTotalPrice(product.getSoldTotalPrice())
                 .soldTotalQuantity(product.getSoldTotalQuantity())
                 .build();
     }

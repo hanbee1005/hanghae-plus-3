@@ -7,14 +7,12 @@ import lombok.Getter;
 public class PopularProduct {
     private Long id;
     private String name;
-    private Integer soldTotalPrice;
     private Integer soldTotalQuantity;
 
     @Builder
-    public PopularProduct(Long id, String name, Integer soldTotalPrice, Integer soldTotalQuantity) {
+    public PopularProduct(Long id, String name, Integer soldTotalQuantity) {
         this.id = id;
         this.name = name;
-        this.soldTotalPrice = soldTotalPrice;
         this.soldTotalQuantity = soldTotalQuantity;
     }
 }

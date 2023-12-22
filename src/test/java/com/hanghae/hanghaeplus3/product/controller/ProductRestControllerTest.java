@@ -80,9 +80,9 @@ class ProductRestControllerTest {
 
     private List<PopularProduct> getMockPopularProductList() {
         return List.of(
-                PopularProduct.builder().id(1L).name("itemA").soldTotalPrice(5000).soldTotalQuantity(5).build(),
-                PopularProduct.builder().id(2L).name("itemB").soldTotalPrice(4500).soldTotalQuantity(3).build(),
-                PopularProduct.builder().id(3L).name("itemC").soldTotalPrice(20000).soldTotalQuantity(10).build()
+                PopularProduct.builder().id(1L).name("itemA").soldTotalQuantity(5).build(),
+                PopularProduct.builder().id(2L).name("itemB").soldTotalQuantity(3).build(),
+                PopularProduct.builder().id(3L).name("itemC").soldTotalQuantity(10).build()
         );
     }
 }

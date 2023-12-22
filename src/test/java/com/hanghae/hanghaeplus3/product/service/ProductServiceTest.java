@@ -1,5 +1,6 @@
 package com.hanghae.hanghaeplus3.product.service;
 
+import com.hanghae.hanghaeplus3.product.service.component.OrderManager;
 import com.hanghae.hanghaeplus3.product.service.domain.PopularProduct;
 import com.hanghae.hanghaeplus3.product.service.domain.Product;
 import org.junit.jupiter.api.DisplayName;
@@ -15,7 +16,7 @@ class ProductServiceTest {
     private final ProductService service;
 
     private ProductServiceTest() {
-        service = new ProductService(new FakeProductRepository(), new FakeOrderRepository());
+        service = new ProductService(new FakeProductRepository(), new OrderManager(new FakeOrderRepository()));
     }
 
     @Test
