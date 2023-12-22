@@ -104,7 +104,7 @@ class AccountRestControllerTest {
     }
 
     @Test
-    @DisplayName("계좌 잔고 충전 실패 - 충전 금액은 양수")
+    @DisplayName("계좌 잔고 충전 실패 - 충전 금액은 양수이어야 함")
     public void chargeBalanceFailByAmount() throws Exception {
         // given
         Long memberId = 1L;
