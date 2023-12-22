@@ -1,6 +1,6 @@
 package com.hanghae.hanghaeplus3.product.service;
 
-import com.hanghae.hanghaeplus3.order.service.domain.OrderProduct;
+import com.hanghae.hanghaeplus3.order.service.domain.SoldProduct;
 import com.hanghae.hanghaeplus3.product.service.component.OrderManager;
 import com.hanghae.hanghaeplus3.product.service.domain.PopularProduct;
 import com.hanghae.hanghaeplus3.product.service.domain.Product;
@@ -24,11 +24,12 @@ public class ProductService {
     }
 
     public List<PopularProduct> findPopulars(LocalDate searchDate, int duration, int count) {
-        List<OrderProduct> products = orderManager.getOrderProductsIn(searchDate, duration, count);
+        List<SoldProduct> products = orderManager.getOrderProductsIn(searchDate, duration, count);
         return products.stream()
                 .map(product -> PopularProduct.builder()
                         .id(product.getProductId())
                         .name(product.getName())
+                        .soldTotalQuantity(product.getSoldTotalQuantity())
                         .build())
                 .toList();
     }

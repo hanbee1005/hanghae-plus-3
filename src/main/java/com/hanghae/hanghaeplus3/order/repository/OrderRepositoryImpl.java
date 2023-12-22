@@ -3,7 +3,7 @@ package com.hanghae.hanghaeplus3.order.repository;
 import com.hanghae.hanghaeplus3.order.repository.entity.OrderEntity;
 import com.hanghae.hanghaeplus3.order.service.OrderRepository;
 import com.hanghae.hanghaeplus3.order.service.domain.Order;
-import com.hanghae.hanghaeplus3.order.service.domain.OrderProduct;
+import com.hanghae.hanghaeplus3.order.service.domain.SoldProduct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -29,7 +29,21 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public List<OrderProduct> findOrderProductsIn(LocalDate searchDate, int duration) {
+    public List<SoldProduct> findOrderProductsIn(LocalDate searchDate, int duration, int count) {
+        /*
+         SELECT op.product_id,
+            GROUP_CONCAT(op.name) AS name,
+            SUM(op.quantity) AS sold_total_quantity
+        FROM order_product op
+            LEFT JOIN orders o ON o.id = op.order_id
+        WHERE o.status = 'COMPLETED'
+            AND o.created_at >= str_to_date('2023-12-20', '%Y-%m-%d')
+            AND o.created_at < str_to_date('2023-12-23', '%Y-%m-%d')
+        GROUP BY op.product_id
+        ORDER BY sold_total_quantity DESC
+        LIMIT #{count};
+         */
+
         return null;
     }
 }
