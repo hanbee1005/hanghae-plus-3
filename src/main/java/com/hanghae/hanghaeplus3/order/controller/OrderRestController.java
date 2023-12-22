@@ -1,6 +1,7 @@
 package com.hanghae.hanghaeplus3.order.controller;
 
 import com.hanghae.hanghaeplus3.order.controller.request.OrderProductsRequest;
+import com.hanghae.hanghaeplus3.order.controller.response.OrderProductsResponse;
 import com.hanghae.hanghaeplus3.order.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,6 @@ public class OrderRestController {
     @PostMapping("/request")
     public ResponseEntity<?> requestOrders(@Valid @RequestBody OrderProductsRequest request) {
         Long orderId = orderService.requestOrder(request.toOrder());
-        return ResponseEntity.ok(orderId);
+        return ResponseEntity.ok(OrderProductsResponse.builder().orderId(orderId).build());
     }
 }

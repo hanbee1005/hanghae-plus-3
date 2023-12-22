@@ -6,7 +6,6 @@ import lombok.Builder;
 public record PopularProductResponse(
         Long id,
         String name,
-        Integer soldTotalPrice,
         Integer soldTotalQuantity
 ) {
     @Builder

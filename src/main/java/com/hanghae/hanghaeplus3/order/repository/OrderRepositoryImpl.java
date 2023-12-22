@@ -44,6 +44,10 @@ public class OrderRepositoryImpl implements OrderRepository {
         LIMIT #{count};
          */
 
-        return null;
+        return List.of(
+                SoldProduct.builder().productId(1L).name("mockProductA").soldTotalQuantity(5).build(),
+                SoldProduct.builder().productId(2L).name("mockProductB").soldTotalQuantity(3).build(),
+                SoldProduct.builder().productId(3L).name("mockProductC").soldTotalQuantity(2).build()
+        );
     }
 }
