@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
@@ -69,6 +70,40 @@ class AccountServiceTest {
         assertThat(updatedAccount.getId()).isEqualTo(accountId);
         assertThat(updatedAccount.getMemberId()).isEqualTo(memberId);
         assertThat(updatedAccount.getBalance()).isEqualTo(balance + amount);
+    }
+
+    @Test
+    @DisplayName("계좌 잔고 충전 실패 - 본인의 계좌 잔고만 충전이 가능합니다.")
+    public void chargeBalanceFailByMember() {
+        // given
+        long amount = 100L;
+
+        Account account = getMockAccount();
+        Long accountId = account.getId();
+        Long memberId = -1L;
+
+        given(accountRepository.findAccountOf(anyLong())).willReturn(account);
+
+        // when
+        // then
+        assertThrows(IllegalArgumentException.class, () -> accountService.chargeBalance(memberId, accountId, amount));
+    }
+
+    @Test
+    @DisplayName("계좌 잔고 충전 실패 - 충전 요청 금액이 음수이면 안됩니다.")
+    public void chargeBalanceFailByAmount() {
+        // given
+        long amount = -1L;
+
+        Account account = getMockAccount();
+        Long accountId = account.getId();
+        Long memberId = account.getMemberId();
+
+        given(accountRepository.findAccountOf(anyLong())).willReturn(account);
+
+        // when
+        // then
+        assertThrows(IllegalArgumentException.class, () -> accountService.chargeBalance(memberId, accountId, amount));
     }
 
     private Account getMockAccount() {

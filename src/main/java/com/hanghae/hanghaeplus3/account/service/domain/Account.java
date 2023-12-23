@@ -28,6 +28,13 @@ public class Account {
     }
 
     public void charge(long amount) {
+        isPositive(amount);
         balance += amount;
+    }
+
+    private void isPositive(long amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("충전하려는 금액은 음수일 수 없습니다.");
+        }
     }
 }
