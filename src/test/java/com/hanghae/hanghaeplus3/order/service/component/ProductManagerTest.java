@@ -1,5 +1,6 @@
 package com.hanghae.hanghaeplus3.order.service.component;
 
+import com.hanghae.hanghaeplus3.exception.CustomException;
 import com.hanghae.hanghaeplus3.order.service.domain.OrderProduct;
 import com.hanghae.hanghaeplus3.product.service.ProductRepository;
 import com.hanghae.hanghaeplus3.product.service.domain.Product;
@@ -33,7 +34,7 @@ class ProductManagerTest {
 
         // when
         // then
-        assertThrows(IllegalArgumentException.class, () -> productManager.requestBuy(mockOrderProducts));
+        assertThrows(CustomException.class, () -> productManager.requestBuy(mockOrderProducts));
     }
 
     private List<Product> getMockProducts() {

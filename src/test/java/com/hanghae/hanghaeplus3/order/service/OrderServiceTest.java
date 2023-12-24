@@ -1,5 +1,6 @@
 package com.hanghae.hanghaeplus3.order.service;
 
+import com.hanghae.hanghaeplus3.exception.CustomException;
 import com.hanghae.hanghaeplus3.order.constant.OrderStatus;
 import com.hanghae.hanghaeplus3.order.service.component.ProductManager;
 import com.hanghae.hanghaeplus3.order.service.domain.Order;
@@ -54,7 +55,7 @@ class OrderServiceTest {
 
         // when
         // then
-        assertThrows(IllegalArgumentException.class, () -> orderService.getOrder(-1L, order.getId()));
+        assertThrows(CustomException.class, () -> orderService.getOrder(-1L, order.getId()));
     }
 
     @Test

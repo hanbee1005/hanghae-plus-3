@@ -1,10 +1,14 @@
 package com.hanghae.hanghaeplus3.account.service.domain;
 
+import com.hanghae.hanghaeplus3.exception.CustomException;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+
+import static com.hanghae.hanghaeplus3.CustomExceptionStatus.ACCOUNT_NOT_CHARGE_MINUS;
+import static com.hanghae.hanghaeplus3.CustomExceptionStatus.ACCOUNT_NOT_MATCH_OWNER;
 
 @Getter
 public class Account {
@@ -23,7 +27,7 @@ public class Account {
 
     public void checkOwner(Long memberId) {
         if (!Objects.equals(memberId, this.memberId)) {
-            throw new IllegalArgumentException("사용자의 계좌가 아닙니다.");
+            throw new CustomException(ACCOUNT_NOT_MATCH_OWNER);
         }
     }
 
@@ -34,7 +38,7 @@ public class Account {
 
     private void isPositive(long amount) {
         if (amount < 0) {
-            throw new IllegalArgumentException("충전하려는 금액은 음수일 수 없습니다.");
+            throw new CustomException(ACCOUNT_NOT_CHARGE_MINUS);
         }
     }
 }

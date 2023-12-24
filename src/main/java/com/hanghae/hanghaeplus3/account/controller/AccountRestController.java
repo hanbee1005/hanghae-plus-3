@@ -1,5 +1,6 @@
 package com.hanghae.hanghaeplus3.account.controller;
 
+import com.hanghae.hanghaeplus3.CommonResponse;
 import com.hanghae.hanghaeplus3.account.controller.request.BalanceChargeRequest;
 import com.hanghae.hanghaeplus3.account.controller.response.ChargeBalanceResponse;
 import com.hanghae.hanghaeplus3.account.controller.response.FindBalanceResponse;
@@ -22,12 +23,12 @@ public class AccountRestController {
     @GetMapping("/balance")
     public ResponseEntity<?> findBalancesOf(@RequestHeader(name = "Authorization") Long memberId) {
         List<Account> accounts = accountService.findBalanceOf(memberId);
-        return ResponseEntity.ok(FindBalanceResponse.create(accounts));
+        return ResponseEntity.ok(CommonResponse.ok(FindBalanceResponse.create(accounts)));
     }
 
     @PutMapping("/balance/charge")
     public ResponseEntity<?> chargeBalanceOf(@RequestBody @Valid BalanceChargeRequest request) {
         Long chargedAccountId = accountService.chargeBalance(request.memberId(), request.accountId(), request.amount());
-        return ResponseEntity.ok(ChargeBalanceResponse.builder().accountId(chargedAccountId).build());
+        return ResponseEntity.ok(CommonResponse.ok(ChargeBalanceResponse.builder().accountId(chargedAccountId).build()));
     }
 }

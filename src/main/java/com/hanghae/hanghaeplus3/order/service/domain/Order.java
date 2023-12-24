@@ -1,5 +1,6 @@
 package com.hanghae.hanghaeplus3.order.service.domain;
 
+import com.hanghae.hanghaeplus3.exception.CustomException;
 import com.hanghae.hanghaeplus3.order.constant.OrderStatus;
 import lombok.Builder;
 import lombok.Getter;
@@ -7,6 +8,8 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+
+import static com.hanghae.hanghaeplus3.CustomExceptionStatus.ORDER_NOT_MATCH_OWNER;
 
 @Getter
 public class Order {
@@ -27,7 +30,7 @@ public class Order {
 
     public void checkOwner(Long memberId) {
         if (!Objects.equals(memberId, this.memberId)) {
-            throw new IllegalArgumentException("사용자의 주문이 아닙니다.");
+            throw new CustomException(ORDER_NOT_MATCH_OWNER);
         }
     }
 }

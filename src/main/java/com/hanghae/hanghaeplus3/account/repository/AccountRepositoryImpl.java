@@ -3,10 +3,13 @@ package com.hanghae.hanghaeplus3.account.repository;
 import com.hanghae.hanghaeplus3.account.repository.entity.AccountEntity;
 import com.hanghae.hanghaeplus3.account.service.AccountRepository;
 import com.hanghae.hanghaeplus3.account.service.domain.Account;
+import com.hanghae.hanghaeplus3.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
+import static com.hanghae.hanghaeplus3.CustomExceptionStatus.ACCOUNT_NOT_FOUND;
 
 @Repository
 @RequiredArgsConstructor
@@ -23,7 +26,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     @Override
     public Account findAccountOf(Long accountId) {
         return repository.findById(accountId)
-                .orElseThrow(IllegalArgumentException::new)
+                .orElseThrow(() -> new CustomException(ACCOUNT_NOT_FOUND))
                 .toAccount();
     }
 

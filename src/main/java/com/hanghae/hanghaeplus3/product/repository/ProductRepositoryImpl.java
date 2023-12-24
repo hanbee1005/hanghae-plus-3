@@ -1,5 +1,6 @@
 package com.hanghae.hanghaeplus3.product.repository;
 
+import com.hanghae.hanghaeplus3.exception.CustomException;
 import com.hanghae.hanghaeplus3.product.repository.entity.ProductEntity;
 import com.hanghae.hanghaeplus3.product.service.ProductRepository;
 import com.hanghae.hanghaeplus3.product.service.domain.PopularProduct;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static com.hanghae.hanghaeplus3.CustomExceptionStatus.PRODUCT_NOT_FOUND;
+
 @Repository
 @RequiredArgsConstructor
 public class ProductRepositoryImpl implements ProductRepository {
@@ -17,7 +20,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public Product findById(Long productId) {
         return repository.findById(productId)
-                .orElseThrow(() -> new IllegalArgumentException("Not Found Product"))
+                .orElseThrow(() -> new CustomException(PRODUCT_NOT_FOUND))
                 .toProduct();
     }
 

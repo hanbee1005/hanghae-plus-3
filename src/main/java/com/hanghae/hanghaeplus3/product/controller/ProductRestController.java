@@ -1,5 +1,6 @@
 package com.hanghae.hanghaeplus3.product.controller;
 
+import com.hanghae.hanghaeplus3.CommonResponse;
 import com.hanghae.hanghaeplus3.product.controller.request.FindPopularProductsRequest;
 import com.hanghae.hanghaeplus3.product.controller.response.FindPopularProductsResponse;
 import com.hanghae.hanghaeplus3.product.controller.response.FindProductsResponse;
@@ -29,9 +30,9 @@ public class ProductRestController {
     @GetMapping
     public ResponseEntity<?> findProducts() {
         List<Product> products = productService.findProducts();
-        return ResponseEntity.ok(FindProductsResponse.builder()
+        return ResponseEntity.ok(CommonResponse.ok(FindProductsResponse.builder()
                 .products(products.stream().map(ProductResponse::of).toList())
-                .build());
+                .build()));
     }
 
     @GetMapping("/popular")
@@ -39,11 +40,11 @@ public class ProductRestController {
         LocalDate searchDate = request.getSearchDate();
         List<PopularProduct> popularProducts = productService.findPopulars(searchDate, request.duration(), request.count());
 
-        return ResponseEntity.ok(FindPopularProductsResponse.builder()
+        return ResponseEntity.ok(CommonResponse.ok(FindPopularProductsResponse.builder()
                 .startAt(searchDate.minusDays(request.duration()))
                 .endAt(searchDate)
                 .count(popularProducts.size())
                 .products(popularProducts.stream().map(PopularProductResponse::of).toList())
-                .build());
+                .build()));
     }
 }

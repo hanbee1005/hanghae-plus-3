@@ -1,5 +1,6 @@
 package com.hanghae.hanghaeplus3.order.repository;
 
+import com.hanghae.hanghaeplus3.exception.CustomException;
 import com.hanghae.hanghaeplus3.order.repository.entity.OrderEntity;
 import com.hanghae.hanghaeplus3.order.service.OrderRepository;
 import com.hanghae.hanghaeplus3.order.service.domain.Order;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.List;
 
+import static com.hanghae.hanghaeplus3.CustomExceptionStatus.ORDER_NOT_FOUND;
+
 @Repository
 @RequiredArgsConstructor
 public class OrderRepositoryImpl implements OrderRepository {
@@ -18,7 +21,7 @@ public class OrderRepositoryImpl implements OrderRepository {
     @Override
     public Order findById(Long orderId) {
         return repository.findById(orderId)
-                .orElseThrow(() -> new IllegalArgumentException("Not Found Order"))
+                .orElseThrow(() -> new CustomException(ORDER_NOT_FOUND))
                 .toOrder();
     }
 
