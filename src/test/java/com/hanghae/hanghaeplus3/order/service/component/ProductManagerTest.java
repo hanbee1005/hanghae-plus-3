@@ -37,6 +37,8 @@ class ProductManagerTest {
         assertThrows(CustomException.class, () -> productManager.requestBuy(mockOrderProducts));
     }
 
+    // TODO 동시에 여러개 주문 시 재고 차감 테스트
+
     private List<Product> getMockProducts() {
         return List.of(
                 Product.builder().id(1L).name("itemA").price(1000).quantity(10).build(),
