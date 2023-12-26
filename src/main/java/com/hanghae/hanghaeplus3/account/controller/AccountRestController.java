@@ -23,7 +23,7 @@ public class AccountRestController {
     @GetMapping("/balance")
     public ResponseEntity<?> findBalancesOf(@RequestHeader(name = "Authorization") Long memberId) {
         List<Account> accounts = accountService.findBalanceOf(memberId);
-        return ResponseEntity.ok(CommonResponse.ok(FindBalanceResponse.create(accounts)));
+        return ResponseEntity.ok(CommonResponse.ok(FindBalanceResponse.from(accounts)));
     }
 
     @PutMapping("/balance/charge")

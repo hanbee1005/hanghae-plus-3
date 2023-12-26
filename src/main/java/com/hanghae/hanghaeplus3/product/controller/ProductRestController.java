@@ -31,7 +31,7 @@ public class ProductRestController {
     public ResponseEntity<?> findProducts() {
         List<Product> products = productService.findProducts();
         return ResponseEntity.ok(CommonResponse.ok(FindProductsResponse.builder()
-                .products(products.stream().map(ProductResponse::of).toList())
+                .products(products.stream().map(ProductResponse::from).toList())
                 .build()));
     }
 
@@ -44,7 +44,7 @@ public class ProductRestController {
                 .startAt(searchDate.minusDays(request.duration()))
                 .endAt(searchDate)
                 .count(popularProducts.size())
-                .products(popularProducts.stream().map(PopularProductResponse::of).toList())
+                .products(popularProducts.stream().map(PopularProductResponse::from).toList())
                 .build()));
     }
 }

@@ -32,7 +32,7 @@ public class ProductEntity extends BaseTimeEntity {
     @Column
     private Long lastModifier;
 
-    public static ProductEntity of(Product product) {
+    public static ProductEntity create(Product product) {
         return ProductEntity.builder()
                 .id(product.getId())
                 .name(product.getName())

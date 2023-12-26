@@ -13,7 +13,7 @@ public record ProductResponse(
     public ProductResponse {
     }
 
-    public static ProductResponse of(Product product) {
+    public static ProductResponse from(Product product) {
         return ProductResponse.builder()
                 .id(product.getId())
                 .name(product.getName())

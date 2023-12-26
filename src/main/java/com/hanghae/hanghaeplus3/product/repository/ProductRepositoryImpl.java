@@ -43,6 +43,6 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public void saveAll(List<Product> products) {
-        repository.saveAll(products.stream().map(ProductEntity::of).toList());
+        repository.saveAll(products.stream().map(ProductEntity::create).toList());
     }
 }

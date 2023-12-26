@@ -8,7 +8,7 @@ public record FindBalanceResponse(
         Long totalBalance,
         List<Account> accounts
 ) {
-    public static FindBalanceResponse create(List<Account> accounts) {
+    public static FindBalanceResponse from(List<Account> accounts) {
         long total = 0;
         for (Account account : accounts) {
             total += account.getBalance();

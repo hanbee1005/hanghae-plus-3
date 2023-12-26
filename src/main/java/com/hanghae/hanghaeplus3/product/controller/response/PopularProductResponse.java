@@ -12,7 +12,7 @@ public record PopularProductResponse(
     public PopularProductResponse {
     }
 
-    public static PopularProductResponse of(PopularProduct product) {
+    public static PopularProductResponse from(PopularProduct product) {
         return PopularProductResponse.builder()
                 .id(product.getId())
                 .name(product.getName())
