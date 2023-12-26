@@ -5,12 +5,14 @@ import com.hanghae.hanghaeplus3.product.service.ProductRepository;
 import com.hanghae.hanghaeplus3.product.service.domain.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
+@Transactional(rollbackFor = Exception.class)
 public class ProductManager {
     private final ProductRepository productRepository;
 

@@ -3,11 +3,10 @@ package com.hanghae.hanghaeplus3.product.repository.entity;
 import com.hanghae.hanghaeplus3.BaseTimeEntity;
 import com.hanghae.hanghaeplus3.product.service.domain.Product;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+@Getter
+@ToString
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)

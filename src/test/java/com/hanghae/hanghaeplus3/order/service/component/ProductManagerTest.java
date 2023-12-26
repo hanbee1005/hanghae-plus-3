@@ -1,57 +1,86 @@
 package com.hanghae.hanghaeplus3.order.service.component;
 
-import com.hanghae.hanghaeplus3.exception.CustomException;
 import com.hanghae.hanghaeplus3.order.service.domain.OrderProduct;
-import com.hanghae.hanghaeplus3.product.service.ProductRepository;
-import com.hanghae.hanghaeplus3.product.service.domain.Product;
+import com.hanghae.hanghaeplus3.product.repository.ProductJpaRepository;
+import com.hanghae.hanghaeplus3.product.repository.entity.ProductEntity;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@ExtendWith({MockitoExtension.class})
+@Slf4j
+@SpringBootTest
 class ProductManagerTest {
-    @InjectMocks
-    private ProductManager productManager;
+    @Autowired
+    ProductManager productManager;
+    @Autowired
+    ProductJpaRepository productJpaRepository;
 
-    @Mock
-    private ProductRepository productRepository;
+    List<Long> savedProductIds = new ArrayList<>();
+    long savedProductId;
 
-    @Test
-    @DisplayName("상품 구매 요청 실패 - 상품 재고 부족")
-    public void buyProduct() {
-        // given
-        List<OrderProduct> mockOrderProducts = getMockOrderProducts();
-        given(productRepository.findAllById(any())).willReturn(getMockProducts());
-
-        // when
-        // then
-        assertThrows(CustomException.class, () -> productManager.requestBuy(mockOrderProducts));
+    @BeforeEach
+    void beforeEach() {
+        ProductEntity saved = productJpaRepository.save(ProductEntity.builder().name("testProductA").price(1000).quantity(10).build());
+        savedProductId = saved.getId();
+        log.info("saved product = {}", saved);
     }
 
-    // TODO 동시에 여러개 주문 시 재고 차감 테스트
+    @AfterEach
+    void afterEach() {
+        productJpaRepository.deleteById(savedProductId);
+    }
 
-    private List<Product> getMockProducts() {
+    @Test
+    @DisplayName("동시에 상품 하나 구매 요청 시 재고 차감")
+    public void buyProductConcurrently() {
+        // given
+        List<OrderProduct> orderProducts1 = List.of(OrderProduct.builder().productId(savedProductId).quantity(5).build());
+        List<OrderProduct> orderProducts2 = List.of(OrderProduct.builder().productId(savedProductId).quantity(5).build());
+
+        // when
+        CompletableFuture<ProductEntity> future = CompletableFuture.allOf(
+                CompletableFuture.runAsync(() -> productManager.requestBuy(orderProducts1)),
+                CompletableFuture.runAsync(() -> productManager.requestBuy(orderProducts2))
+        ).thenApply((a) -> productJpaRepository.findById(savedProductId).orElseThrow());
+
+        // then
+        ProductEntity afterBuy = future.join();
+        log.info("after buy = {}", afterBuy);
+
+        assertThat(afterBuy.getQuantity()).isEqualTo(0);
+    }
+
+    private List<ProductEntity> getMockProducts() {
         return List.of(
-                Product.builder().id(1L).name("itemA").price(1000).quantity(10).build(),
-                Product.builder().id(2L).name("itemB").price(1500).quantity(5).build(),
-                Product.builder().id(3L).name("itemC").price(2000).quantity(13).build()
+                ProductEntity.builder().name("testProductA").price(1000).quantity(10).build(),
+                ProductEntity.builder().name("testProductB").price(1500).quantity(5).build(),
+                ProductEntity.builder().name("testProductC").price(2000).quantity(13).build()
         );
     }
 
     private List<OrderProduct> getMockOrderProducts() {
         return List.of(
-                OrderProduct.builder().productId(1L).quantity(2).build(),
-                OrderProduct.builder().productId(2L).quantity(500).build(),
-                OrderProduct.builder().productId(3L).quantity(3).build()
+                OrderProduct.builder().productId(savedProductIds.get(0)).quantity(5).build(),
+                OrderProduct.builder().productId(savedProductIds.get(1)).quantity(2).build(),
+                OrderProduct.builder().productId(savedProductIds.get(2)).quantity(3).build()
+        );
+    }
+
+    private List<OrderProduct> getMockOrderProducts2() {
+        return List.of(
+                OrderProduct.builder().productId(savedProductIds.get(0)).quantity(6).build(),
+                OrderProduct.builder().productId(savedProductIds.get(1)).quantity(2).build(),
+                OrderProduct.builder().productId(savedProductIds.get(2)).quantity(3).build()
         );
     }
 
