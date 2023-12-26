@@ -1,8 +1,8 @@
 package com.hanghae.hanghaeplus3.exception;
 
-import com.hanghae.hanghaeplus3.CustomExceptionStatus;
+import com.hanghae.hanghaeplus3.constant.CustomExceptionStatus;
 
-import static com.hanghae.hanghaeplus3.CustomExceptionStatus.MEMBER_NOT_FOUND;
+import static com.hanghae.hanghaeplus3.constant.CustomExceptionStatus.MEMBER_NOT_FOUND;
 
 public class MemberNotFoundException extends CustomException {
     public MemberNotFoundException() {

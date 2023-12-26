@@ -4,7 +4,7 @@ import com.hanghae.hanghaeplus3.exception.CustomException;
 import lombok.Builder;
 import lombok.Getter;
 
-import static com.hanghae.hanghaeplus3.CustomExceptionStatus.PRODUCT_NOT_ENOUGH_STOCK;
+import static com.hanghae.hanghaeplus3.constant.CustomExceptionStatus.PRODUCT_NOT_ENOUGH_STOCK;
 
 @Getter
 public class Product {

@@ -1,4 +1,4 @@
-package com.hanghae.hanghaeplus3;
+package com.hanghae.hanghaeplus3.constant;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

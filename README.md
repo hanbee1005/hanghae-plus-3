@@ -20,3 +20,38 @@
 - ```prod-cd.yml``` : 
 
 ## Chapter 2. TDD 서버 구축
+### Layered Architecture
+```
+com.hanghae.hanghaeplus3
+    ├── account
+    │   ├── controller
+    │   │   ├── AccountRestController.java
+    │   │   ├── request
+    │   │   │   └── BalanceChargeRequest.java
+    │   │   └── response
+    │   │       ├── ChargeBalanceResponse.java
+    │   │       └── FindBalanceResponse.java
+    │   ├── repository
+    │   │   ├── AccountJpaRepository.java
+    │   │   ├── AccountRepositoryImpl.java
+    │   │   └── entity
+    │   │       └── AccountEntity.java
+    │   └── service
+    │       ├── AccountRepository.java
+    │       ├── AccountService.java
+    │       ├── component
+    │       │   └── MemberReader.java
+    │       └── domain
+    │           └── Account.java
+    ├── config
+    ├── constant
+    ├── exception
+    ├── member
+    ├── order
+    ├── payment
+    ├── product
+    ├── BaseTimeEntity.java
+    ├── CommonResponse.java
+    └── HanghaePlus3Application.java
+```
+### TDD

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-import static com.hanghae.hanghaeplus3.CustomExceptionStatus.ORDER_NOT_MATCH_OWNER;
+import static com.hanghae.hanghaeplus3.constant.CustomExceptionStatus.ORDER_NOT_MATCH_OWNER;
 
 @Getter
 public class Order {

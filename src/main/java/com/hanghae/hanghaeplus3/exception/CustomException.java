@@ -1,6 +1,6 @@
 package com.hanghae.hanghaeplus3.exception;
 
-import com.hanghae.hanghaeplus3.CustomExceptionStatus;
+import com.hanghae.hanghaeplus3.constant.CustomExceptionStatus;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

@@ -7,8 +7,8 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import static com.hanghae.hanghaeplus3.CustomExceptionStatus.ACCOUNT_NOT_CHARGE_MINUS;
-import static com.hanghae.hanghaeplus3.CustomExceptionStatus.ACCOUNT_NOT_MATCH_OWNER;
+import static com.hanghae.hanghaeplus3.constant.CustomExceptionStatus.ACCOUNT_NOT_CHARGE_MINUS;
+import static com.hanghae.hanghaeplus3.constant.CustomExceptionStatus.ACCOUNT_NOT_MATCH_OWNER;
 
 @Getter
 public class Account {

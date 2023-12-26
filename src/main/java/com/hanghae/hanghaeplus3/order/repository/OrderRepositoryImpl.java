@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.hanghae.hanghaeplus3.CustomExceptionStatus.ORDER_NOT_FOUND;
+import static com.hanghae.hanghaeplus3.constant.CustomExceptionStatus.ORDER_NOT_FOUND;
 
 @Repository
 @RequiredArgsConstructor

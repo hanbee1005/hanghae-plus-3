@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.hanghae.hanghaeplus3.CustomExceptionStatus.PRODUCT_NOT_FOUND;
+import static com.hanghae.hanghaeplus3.constant.CustomExceptionStatus.PRODUCT_NOT_FOUND;
 
 @Repository
 @RequiredArgsConstructor
