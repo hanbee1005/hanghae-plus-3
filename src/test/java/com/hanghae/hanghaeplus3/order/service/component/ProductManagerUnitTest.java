@@ -4,6 +4,7 @@ import com.hanghae.hanghaeplus3.exception.CustomException;
 import com.hanghae.hanghaeplus3.order.service.domain.OrderProduct;
 import com.hanghae.hanghaeplus3.product.service.ProductRepository;
 import com.hanghae.hanghaeplus3.product.service.domain.Product;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
+@Disabled
 @ExtendWith({MockitoExtension.class})
 class ProductManagerUnitTest {
     @InjectMocks

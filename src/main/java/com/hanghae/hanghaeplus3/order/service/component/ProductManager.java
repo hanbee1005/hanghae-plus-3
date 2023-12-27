@@ -1,37 +1,45 @@
 package com.hanghae.hanghaeplus3.order.service.component;
 
 import com.hanghae.hanghaeplus3.order.service.domain.OrderProduct;
-import com.hanghae.hanghaeplus3.product.service.ProductRepository;
-import com.hanghae.hanghaeplus3.product.service.domain.Product;
+import com.hanghae.hanghaeplus3.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
-@Transactional(rollbackFor = Exception.class)
 public class ProductManager {
-    private final ProductRepository productRepository;
+    private final ProductService productService;
+    private final RedissonClient redissonClient;
+
+    @Value("${redis.stock.prefix}")
+    private String STOCK_LOCK_PREFIX;
 
     public void requestBuy(List<OrderProduct> orderProducts) {
-        List<Product> products = productRepository.findAllById(orderProducts.stream().map(OrderProduct::getProductId).toList());
-        buyProducts(products, orderProducts);
+        String lockName = STOCK_LOCK_PREFIX + ":lock";
+        RLock lock = redissonClient.getLock(lockName);
 
-        productRepository.saveAll(products);
-    }
+        try {
+            boolean available = lock.tryLock(5, 3, TimeUnit.SECONDS);
+            if(!available) {
+                log.info("Fail getting lock {}", lockName);
+                return;
+            }
 
-    private void buyProducts(List<Product> products, List<OrderProduct> orderProducts) {
-        products.forEach(p -> {
-            orderProducts.stream()
-                    .filter(op -> Objects.equals(op.getProductId(), p.getId()))
-                    .findAny()
-                    .ifPresent(op -> {
-                        op.setNameAndPrice(p.getName(), p.getPrice());
-                        p.minusQuantity(op.getQuantity());
-                    });
-        });
+           productService.requestBuy(orderProducts);
+        } catch (InterruptedException e) {
+            log.error("", e);
+        } finally {
+            if(lock != null && lock.isLocked()) {
+                lock.unlock();
+            }
+        }
     }
 }
