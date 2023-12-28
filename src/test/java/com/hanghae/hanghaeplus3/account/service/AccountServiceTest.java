@@ -2,7 +2,7 @@ package com.hanghae.hanghaeplus3.account.service;
 
 import com.hanghae.hanghaeplus3.account.service.component.MemberReader;
 import com.hanghae.hanghaeplus3.account.service.domain.Account;
-import com.hanghae.hanghaeplus3.exception.CustomException;
+import com.hanghae.hanghaeplus3.common.exception.CustomException;
 import com.hanghae.hanghaeplus3.member.service.domain.Member;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

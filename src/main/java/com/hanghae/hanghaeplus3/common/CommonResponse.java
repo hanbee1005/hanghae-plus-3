@@ -1,6 +1,6 @@
-package com.hanghae.hanghaeplus3;
+package com.hanghae.hanghaeplus3.common;
 
-import com.hanghae.hanghaeplus3.constant.CustomResponseStatus;
+import com.hanghae.hanghaeplus3.common.constant.CustomResponseStatus;
 
 public record CommonResponse<T>(
         String code,

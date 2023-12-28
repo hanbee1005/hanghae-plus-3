@@ -1,6 +1,6 @@
 package com.hanghae.hanghaeplus3.order.service.component;
 
-import com.hanghae.hanghaeplus3.exception.CustomException;
+import com.hanghae.hanghaeplus3.common.exception.CustomException;
 import com.hanghae.hanghaeplus3.order.service.domain.OrderProduct;
 import com.hanghae.hanghaeplus3.product.service.ProductRepository;
 import com.hanghae.hanghaeplus3.product.service.domain.Product;

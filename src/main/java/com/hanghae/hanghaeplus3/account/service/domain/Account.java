@@ -1,14 +1,14 @@
 package com.hanghae.hanghaeplus3.account.service.domain;
 
-import com.hanghae.hanghaeplus3.exception.CustomException;
+import com.hanghae.hanghaeplus3.common.exception.CustomException;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import static com.hanghae.hanghaeplus3.constant.CustomExceptionStatus.ACCOUNT_NOT_CHARGE_MINUS;
-import static com.hanghae.hanghaeplus3.constant.CustomExceptionStatus.ACCOUNT_NOT_MATCH_OWNER;
+import static com.hanghae.hanghaeplus3.common.constant.CustomExceptionStatus.ACCOUNT_NOT_CHARGE_MINUS;
+import static com.hanghae.hanghaeplus3.common.constant.CustomExceptionStatus.ACCOUNT_NOT_MATCH_OWNER;
 
 @Getter
 public class Account {

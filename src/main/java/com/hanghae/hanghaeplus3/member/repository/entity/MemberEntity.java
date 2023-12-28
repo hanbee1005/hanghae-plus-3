@@ -1,6 +1,6 @@
 package com.hanghae.hanghaeplus3.member.repository.entity;
 
-import com.hanghae.hanghaeplus3.BaseTimeEntity;
+import com.hanghae.hanghaeplus3.common.BaseTimeEntity;
 import com.hanghae.hanghaeplus3.member.service.domain.Member;
 import jakarta.persistence.*;
 

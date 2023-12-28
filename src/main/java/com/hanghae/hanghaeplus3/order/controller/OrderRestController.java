@@ -1,6 +1,6 @@
 package com.hanghae.hanghaeplus3.order.controller;
 
-import com.hanghae.hanghaeplus3.CommonResponse;
+import com.hanghae.hanghaeplus3.common.CommonResponse;
 import com.hanghae.hanghaeplus3.order.controller.request.OrderProductsRequest;
 import com.hanghae.hanghaeplus3.order.controller.response.OrderProductsResponse;
 import com.hanghae.hanghaeplus3.order.service.OrderService;

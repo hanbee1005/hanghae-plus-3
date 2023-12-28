@@ -1,4 +1,4 @@
-package com.hanghae.hanghaeplus3;
+package com.hanghae.hanghaeplus3.common;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

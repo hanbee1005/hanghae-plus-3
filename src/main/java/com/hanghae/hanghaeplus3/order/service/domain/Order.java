@@ -1,6 +1,6 @@
 package com.hanghae.hanghaeplus3.order.service.domain;
 
-import com.hanghae.hanghaeplus3.exception.CustomException;
+import com.hanghae.hanghaeplus3.common.exception.CustomException;
 import com.hanghae.hanghaeplus3.order.constant.OrderStatus;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-import static com.hanghae.hanghaeplus3.constant.CustomExceptionStatus.ORDER_NOT_MATCH_OWNER;
+import static com.hanghae.hanghaeplus3.common.constant.CustomExceptionStatus.ORDER_NOT_MATCH_OWNER;
 
 @Getter
 public class Order {

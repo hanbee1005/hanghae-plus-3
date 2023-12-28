@@ -1,6 +1,6 @@
 package com.hanghae.hanghaeplus3.order.repository.entity;
 
-import com.hanghae.hanghaeplus3.BaseTimeEntity;
+import com.hanghae.hanghaeplus3.common.BaseTimeEntity;
 import com.hanghae.hanghaeplus3.order.constant.OrderStatus;
 import com.hanghae.hanghaeplus3.order.service.domain.Order;
 import com.hanghae.hanghaeplus3.order.service.domain.OrderProduct;

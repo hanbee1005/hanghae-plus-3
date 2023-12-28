@@ -1,6 +1,6 @@
 package com.hanghae.hanghaeplus3.order.repository;
 
-import com.hanghae.hanghaeplus3.exception.CustomException;
+import com.hanghae.hanghaeplus3.common.exception.CustomException;
 import com.hanghae.hanghaeplus3.order.repository.entity.OrderEntity;
 import com.hanghae.hanghaeplus3.order.service.OrderRepository;
 import com.hanghae.hanghaeplus3.order.service.domain.Order;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.hanghae.hanghaeplus3.constant.CustomExceptionStatus.ORDER_NOT_FOUND;
+import static com.hanghae.hanghaeplus3.common.constant.CustomExceptionStatus.ORDER_NOT_FOUND;
 
 @Repository
 @RequiredArgsConstructor

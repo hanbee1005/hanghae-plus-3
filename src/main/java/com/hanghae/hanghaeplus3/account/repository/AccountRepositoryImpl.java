@@ -3,13 +3,13 @@ package com.hanghae.hanghaeplus3.account.repository;
 import com.hanghae.hanghaeplus3.account.repository.entity.AccountEntity;
 import com.hanghae.hanghaeplus3.account.service.AccountRepository;
 import com.hanghae.hanghaeplus3.account.service.domain.Account;
-import com.hanghae.hanghaeplus3.exception.CustomException;
+import com.hanghae.hanghaeplus3.common.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.hanghae.hanghaeplus3.constant.CustomExceptionStatus.ACCOUNT_NOT_FOUND;
+import static com.hanghae.hanghaeplus3.common.constant.CustomExceptionStatus.ACCOUNT_NOT_FOUND;
 
 @Repository
 @RequiredArgsConstructor

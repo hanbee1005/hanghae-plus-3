@@ -1,6 +1,6 @@
 package com.hanghae.hanghaeplus3.product.controller;
 
-import com.hanghae.hanghaeplus3.CommonResponse;
+import com.hanghae.hanghaeplus3.common.CommonResponse;
 import com.hanghae.hanghaeplus3.product.controller.request.FindPopularProductsRequest;
 import com.hanghae.hanghaeplus3.product.controller.response.FindPopularProductsResponse;
 import com.hanghae.hanghaeplus3.product.controller.response.FindProductsResponse;

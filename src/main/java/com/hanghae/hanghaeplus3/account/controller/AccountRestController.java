@@ -1,6 +1,6 @@
 package com.hanghae.hanghaeplus3.account.controller;
 
-import com.hanghae.hanghaeplus3.CommonResponse;
+import com.hanghae.hanghaeplus3.common.CommonResponse;
 import com.hanghae.hanghaeplus3.account.controller.request.BalanceChargeRequest;
 import com.hanghae.hanghaeplus3.account.controller.response.ChargeBalanceResponse;
 import com.hanghae.hanghaeplus3.account.controller.response.FindBalanceResponse;

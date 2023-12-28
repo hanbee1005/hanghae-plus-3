@@ -1,6 +1,6 @@
 package com.hanghae.hanghaeplus3.account.repository.entity;
 
-import com.hanghae.hanghaeplus3.BaseTimeEntity;
+import com.hanghae.hanghaeplus3.common.BaseTimeEntity;
 import com.hanghae.hanghaeplus3.account.service.domain.Account;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
