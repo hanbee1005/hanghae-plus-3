@@ -2,6 +2,7 @@ package com.hanghae.hanghaeplus3.order.service;
 
 import com.hanghae.hanghaeplus3.exception.CustomException;
 import com.hanghae.hanghaeplus3.order.constant.OrderStatus;
+import com.hanghae.hanghaeplus3.order.service.component.AccountManager;
 import com.hanghae.hanghaeplus3.order.service.component.ProductManager;
 import com.hanghae.hanghaeplus3.order.service.domain.Order;
 import com.hanghae.hanghaeplus3.order.service.domain.OrderProduct;
@@ -31,6 +32,9 @@ class OrderServiceTest {
 
     @Mock
     private ProductManager productManager;
+
+    @Mock
+    private AccountManager accountManager;
 
     @Test
     @DisplayName("주문 조회")

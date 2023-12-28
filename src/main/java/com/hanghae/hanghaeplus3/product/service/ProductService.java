@@ -22,10 +22,12 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final OrderManager orderManager;
 
+    @Transactional(readOnly = true)
     public List<Product> findProducts() {
         return productRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public List<PopularProduct> findPopulars(LocalDate searchDate, int duration, int count) {
         List<SoldProduct> products = orderManager.getOrderProductsIn(searchDate, duration, count);
         return products.stream()
