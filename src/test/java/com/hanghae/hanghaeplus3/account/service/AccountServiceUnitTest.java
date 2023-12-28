@@ -20,7 +20,7 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith({MockitoExtension.class})
-class AccountServiceTest {
+class AccountServiceUnitTest {
     @InjectMocks
     private AccountService accountService;
 
