@@ -1,8 +1,10 @@
 package com.hanghae.hanghaeplus3.product.service;
 
+import com.hanghae.hanghaeplus3.common.exception.CustomException;
 import com.hanghae.hanghaeplus3.order.service.domain.OrderProduct;
 import com.hanghae.hanghaeplus3.product.repository.ProductJpaRepository;
 import com.hanghae.hanghaeplus3.product.repository.entity.ProductEntity;
+import com.hanghae.hanghaeplus3.product.service.domain.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,6 +17,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Slf4j
 @SpringBootTest
@@ -57,5 +60,32 @@ class ProductServiceTest {
         log.info("after buy = {}", afterBuy);
 
         assertThat(afterBuy.getQuantity()).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("상품 구매 요청 실패 - 상품 재고 부족")
+    public void buyProduct() {
+        // given
+        List<OrderProduct> mockOrderProducts = List.of(OrderProduct.builder().productId(savedProductId).quantity(15).build());
+
+        // when
+        // then
+        assertThrows(CustomException.class, () -> productService.requestBuy(mockOrderProducts));
+    }
+
+    private List<Product> getMockProducts() {
+        return List.of(
+                Product.builder().id(1L).name("itemA").price(1000).quantity(10).build(),
+                Product.builder().id(2L).name("itemB").price(1500).quantity(5).build(),
+                Product.builder().id(3L).name("itemC").price(2000).quantity(13).build()
+        );
+    }
+
+    private List<OrderProduct> getMockOrderProducts() {
+        return List.of(
+                OrderProduct.builder().productId(1L).quantity(2).build(),
+                OrderProduct.builder().productId(2L).quantity(500).build(),
+                OrderProduct.builder().productId(3L).quantity(3).build()
+        );
     }
 }

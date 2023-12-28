@@ -50,14 +50,12 @@ public class ProductService {
 
     public void requestBuy(List<OrderProduct> orderProducts) {
         lockHandler.runOnLock(STOCK_LOCK_PREFIX + ":lock", 2000L, 1000L,
-                () -> transactionHandler.runOnWriteTransaction(() -> buyProducts(orderProducts)));
-    }
-
-    public List<Product> buyProducts(List<OrderProduct> orderProducts) {
-        List<Product> products = productRepository.findAllById(orderProducts.stream().map(OrderProduct::getProductId).toList());
-        buyProducts(products, orderProducts);
-        productRepository.saveAll(products);
-        return products;
+                () -> transactionHandler.runOnWriteTransaction(() -> {
+                    List<Product> products = productRepository.findAllById(orderProducts.stream().map(OrderProduct::getProductId).toList());
+                    buyProducts(products, orderProducts);
+                    productRepository.saveAll(products);
+                    return products;
+                }));
     }
 
     private void buyProducts(List<Product> products, List<OrderProduct> orderProducts) {
