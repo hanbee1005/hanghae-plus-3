@@ -18,6 +18,8 @@ public enum CustomExceptionStatus {
 
     ORDER_NOT_FOUND(HttpStatus.BAD_REQUEST, "400401", "Order Not Found"),
     ORDER_NOT_MATCH_OWNER(HttpStatus.BAD_REQUEST, "400402", "사용자의 주문이 아닙니다."),
+
+    LOCK_ACQUISITION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "500101", "lock 획득에 실패하였습니다."),
     ;
 
     private final HttpStatus httpStatus;

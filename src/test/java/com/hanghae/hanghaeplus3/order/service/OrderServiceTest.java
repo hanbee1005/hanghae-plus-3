@@ -1,11 +1,11 @@
 package com.hanghae.hanghaeplus3.order.service;
 
+import com.hanghae.hanghaeplus3.account.service.AccountService;
 import com.hanghae.hanghaeplus3.common.exception.CustomException;
 import com.hanghae.hanghaeplus3.order.constant.OrderStatus;
-import com.hanghae.hanghaeplus3.order.service.component.AccountManager;
-import com.hanghae.hanghaeplus3.order.service.component.ProductManager;
 import com.hanghae.hanghaeplus3.order.service.domain.Order;
 import com.hanghae.hanghaeplus3.order.service.domain.OrderProduct;
+import com.hanghae.hanghaeplus3.product.service.ProductService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,10 +31,10 @@ class OrderServiceTest {
     private OrderRepository orderRepository;
 
     @Mock
-    private ProductManager productManager;
+    private ProductService productService;
 
     @Mock
-    private AccountManager accountManager;
+    private AccountService accountService;
 
     @Test
     @DisplayName("주문 조회")
@@ -67,7 +67,7 @@ class OrderServiceTest {
     public void requestOrder() {
         // given
         Order order = getMockOrder();
-        willDoNothing().given(productManager).requestBuy(any());
+        willDoNothing().given(productService).requestBuy(any());
         given(orderRepository.save(any())).willReturn(order.getId());
         given(orderRepository.findById(anyLong())).willReturn(order);
 

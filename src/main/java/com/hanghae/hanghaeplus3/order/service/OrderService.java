@@ -1,8 +1,8 @@
 package com.hanghae.hanghaeplus3.order.service;
 
-import com.hanghae.hanghaeplus3.order.service.component.AccountManager;
-import com.hanghae.hanghaeplus3.order.service.component.ProductManager;
+import com.hanghae.hanghaeplus3.account.service.AccountService;
 import com.hanghae.hanghaeplus3.order.service.domain.Order;
+import com.hanghae.hanghaeplus3.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class OrderService {
     private final OrderRepository orderRepository;
-    private final ProductManager productManager;
-    private final AccountManager accountManager;
+    private final ProductService productService;
+    private final AccountService accountService;
 
     public Order getOrder(Long memberId, Long orderId) {
         Order order = orderRepository.findById(orderId);
@@ -26,8 +26,8 @@ public class OrderService {
 
     @Transactional(rollbackFor = Exception.class)
     public Long requestOrder(Order order) {
-        productManager.requestBuy(order.getProducts());
-        accountManager.requestBuy(order.getMemberId(), order.getProducts());
+        productService.requestBuy(order.getProducts());
+        // accountService.requestBuy(order.getMemberId(), order.getProducts());
         return orderRepository.save(order);
     }
 }

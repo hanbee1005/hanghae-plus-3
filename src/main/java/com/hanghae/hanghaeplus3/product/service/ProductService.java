@@ -1,5 +1,7 @@
 package com.hanghae.hanghaeplus3.product.service;
 
+import com.hanghae.hanghaeplus3.common.handler.LockHandler;
+import com.hanghae.hanghaeplus3.common.handler.TransactionHandler;
 import com.hanghae.hanghaeplus3.order.service.domain.OrderProduct;
 import com.hanghae.hanghaeplus3.order.service.domain.SoldProduct;
 import com.hanghae.hanghaeplus3.product.service.component.OrderManager;
@@ -7,6 +9,7 @@ import com.hanghae.hanghaeplus3.product.service.domain.PopularProduct;
 import com.hanghae.hanghaeplus3.product.service.domain.Product;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +24,12 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final OrderManager orderManager;
+
+    private final LockHandler lockHandler;
+    private final TransactionHandler transactionHandler;
+
+    @Value("${redis.stock.prefix}")
+    private String STOCK_LOCK_PREFIX;
 
     @Transactional(readOnly = true)
     public List<Product> findProducts() {
@@ -39,11 +48,16 @@ public class ProductService {
                 .toList();
     }
 
-    @Transactional(rollbackFor = Exception.class)
     public void requestBuy(List<OrderProduct> orderProducts) {
+        lockHandler.runOnLock(STOCK_LOCK_PREFIX + ":lock", 2000L, 1000L,
+                () -> transactionHandler.runOnWriteTransaction(() -> buyProducts(orderProducts)));
+    }
+
+    public List<Product> buyProducts(List<OrderProduct> orderProducts) {
         List<Product> products = productRepository.findAllById(orderProducts.stream().map(OrderProduct::getProductId).toList());
         buyProducts(products, orderProducts);
         productRepository.saveAll(products);
+        return products;
     }
 
     private void buyProducts(List<Product> products, List<OrderProduct> orderProducts) {
