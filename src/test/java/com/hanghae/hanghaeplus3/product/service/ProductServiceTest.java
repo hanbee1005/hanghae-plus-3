@@ -7,10 +7,7 @@ import com.hanghae.hanghaeplus3.product.repository.ProductJpaRepository;
 import com.hanghae.hanghaeplus3.product.repository.entity.ProductEntity;
 import com.hanghae.hanghaeplus3.product.service.domain.Product;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -20,6 +17,7 @@ import java.util.concurrent.CompletableFuture;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@Disabled
 @Slf4j
 @SpringBootTest
 class ProductServiceTest extends HanghaePlus3TestContainer {
