@@ -1,5 +1,6 @@
 package com.hanghae.hanghaeplus3.product.service;
 
+import com.hanghae.hanghaeplus3.HanghaePlus3TestContainer;
 import com.hanghae.hanghaeplus3.common.exception.CustomException;
 import com.hanghae.hanghaeplus3.order.service.domain.OrderProduct;
 import com.hanghae.hanghaeplus3.product.repository.ProductJpaRepository;
@@ -21,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Slf4j
 @SpringBootTest
-class ProductServiceTest {
+class ProductServiceTest extends HanghaePlus3TestContainer {
 
     @Autowired
     ProductService productService;

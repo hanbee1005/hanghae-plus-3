@@ -1,5 +1,6 @@
 package com.hanghae.hanghaeplus3.order.service;
 
+import com.hanghae.hanghaeplus3.HanghaePlus3TestContainer;
 import com.hanghae.hanghaeplus3.order.constant.OrderStatus;
 import com.hanghae.hanghaeplus3.order.service.domain.Order;
 import com.hanghae.hanghaeplus3.order.service.domain.OrderProduct;
@@ -20,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 @SpringBootTest
-public class OrderServiceTest {
+public class OrderServiceTest extends HanghaePlus3TestContainer {
 
     @Autowired OrderService orderService;
     @Autowired
