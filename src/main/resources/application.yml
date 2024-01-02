@@ -32,17 +32,6 @@ spring:
       host: localhost
       port: 6379
 
-redis:
-  stock:
-    prefix: stock
-  balance:
-    prefix: balance
-
-#logging:
-#  level:
-#    org.hibernate.SQL: debug
-#    org.hibernate.type: trace
-
 logging:
   level:
     org.hibernate.SQL: debug
