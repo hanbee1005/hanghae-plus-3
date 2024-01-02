@@ -5,6 +5,10 @@ spring:
     username: test
     password: 1234
 
+  jpa:
+    hibernate:
+      ddl-auto: create
+
   data:
     redis:
       host: localhost

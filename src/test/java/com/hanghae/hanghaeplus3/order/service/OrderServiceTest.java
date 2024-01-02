@@ -7,7 +7,10 @@ import com.hanghae.hanghaeplus3.order.service.domain.OrderProduct;
 import com.hanghae.hanghaeplus3.product.repository.ProductJpaRepository;
 import com.hanghae.hanghaeplus3.product.repository.entity.ProductEntity;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -16,7 +19,6 @@ import java.util.concurrent.CompletableFuture;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Disabled
 @Slf4j
 @SpringBootTest
 public class OrderServiceTest extends HanghaePlus3TestContainer {
@@ -45,7 +47,7 @@ public class OrderServiceTest extends HanghaePlus3TestContainer {
         // given
         Order order = Order.builder()
                 .id(1L)
-                .memberId(1L)
+                .memberId(2L)
                 .products(List.of(OrderProduct.builder().productId(savedProductId).quantity(5).build()))
                 .build();
 
