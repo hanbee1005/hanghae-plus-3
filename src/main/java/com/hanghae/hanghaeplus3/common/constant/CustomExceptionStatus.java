@@ -12,6 +12,7 @@ public enum CustomExceptionStatus {
     ACCOUNT_NOT_FOUND(HttpStatus.BAD_REQUEST, "400201", "Account Not Found"),
     ACCOUNT_NOT_MATCH_OWNER(HttpStatus.BAD_REQUEST, "400202", "사용자의 계좌가 아닙니다."),
     ACCOUNT_NOT_CHARGE_MINUS(HttpStatus.BAD_REQUEST, "400203", "0보다 작은 금액은 충전할 수 없습니다."),
+    ACCOUNT_NOT_ENOUGH_BALANCE(HttpStatus.BAD_REQUEST, "400204", "잔액이 부족합니다."),
 
     PRODUCT_NOT_FOUND(HttpStatus.BAD_REQUEST, "400301", "Product Not Found"),
     PRODUCT_NOT_ENOUGH_STOCK(HttpStatus.BAD_REQUEST, "400302", "재고가 부족합니다."),

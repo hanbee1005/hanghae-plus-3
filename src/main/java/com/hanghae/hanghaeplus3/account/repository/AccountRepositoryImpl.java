@@ -34,10 +34,4 @@ public class AccountRepositoryImpl implements AccountRepository {
     public void save(Account account) {
         repository.save(AccountEntity.create(account));
     }
-
-    @Override
-    public void update(Account account) {
-        repository.findById(account.getId())
-                .ifPresent(accountEntity -> accountEntity.updateBalance(account.getBalance()));
-    }
 }

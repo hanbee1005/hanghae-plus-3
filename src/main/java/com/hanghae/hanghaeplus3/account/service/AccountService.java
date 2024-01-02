@@ -35,8 +35,17 @@ public class AccountService {
         account.checkOwner(memberId);
         account.charge(amount);
 
-        accountRepository.update(account);
+        accountRepository.save(account);
+        return account.getId();
+    }
 
+    @Transactional(rollbackFor = Exception.class)
+    public Long deductBalance(Long memberId, Long accountId, Long amount) {
+        Account account = findAccount(accountId);
+        account.checkOwner(memberId);
+        account.deduct(amount);
+
+        accountRepository.save(account);
         return account.getId();
     }
 }

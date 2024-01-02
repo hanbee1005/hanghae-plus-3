@@ -8,5 +8,4 @@ public interface AccountRepository {
     List<Account> findAccountsOf(Long memberId);
     Account findAccountOf(Long accountId);
     void save(Account account);
-    void update(Account account);
 }

@@ -32,6 +32,7 @@ public class AccountEntity extends BaseTimeEntity {
 
     public static AccountEntity create(Account account) {
         return AccountEntity.builder()
+                .id(account.getId())
                 .memberId(account.getMemberId())
                 .balance(account.getBalance())
                 .creator(account.getMemberId())
