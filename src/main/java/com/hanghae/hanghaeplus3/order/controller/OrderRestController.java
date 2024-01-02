@@ -24,6 +24,7 @@ public class OrderRestController {
     @PostMapping("/request")
     public ResponseEntity<?> requestOrders(@Valid @RequestBody OrderProductsRequest request) {
         Long orderId = orderService.requestOrder(request.toOrder());
+        // TODO 이벤트 발송 (to Kafka)
         return ResponseEntity.ok(CommonResponse.ok(OrderProductsResponse.builder().orderId(orderId).build()));
     }
 }

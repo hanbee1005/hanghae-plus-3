@@ -7,8 +7,11 @@ import java.util.List;
 
 public interface ProductRepository {
     Product findById(Long productId);
+    Product findByIdForUpdate(Long productId);
     List<Product> findAllById(List<Long> productIds);
     List<Product> findAll();
     List<PopularProduct> findPopulars(int duration, int count);
+    long save(Product product);
     void saveAll(List<Product> products);
+    List<Long> update(List<Product> products);
 }

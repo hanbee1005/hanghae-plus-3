@@ -51,8 +51,8 @@ class ProductServiceTest {
 
         // when
         CompletableFuture<ProductEntity> future = CompletableFuture.allOf(
-                CompletableFuture.runAsync(() -> productService.requestBuy(orderProducts1)),
-                CompletableFuture.runAsync(() -> productService.requestBuy(orderProducts2))
+                CompletableFuture.runAsync(() -> productService.buyProducts(orderProducts1)),
+                CompletableFuture.runAsync(() -> productService.buyProducts(orderProducts2))
         ).thenApply((a) -> productJpaRepository.findById(savedProductId).orElseThrow());
 
         // then
@@ -70,7 +70,7 @@ class ProductServiceTest {
 
         // when
         // then
-        assertThrows(CustomException.class, () -> productService.requestBuy(mockOrderProducts));
+        assertThrows(CustomException.class, () -> productService.buyProducts(mockOrderProducts));
     }
 
     private List<Product> getMockProducts() {

@@ -25,6 +25,13 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
+    public Product findByIdForUpdate(Long productId) {
+        return repository.findByIdForUpdate(productId)
+                .orElseThrow(() -> new CustomException(PRODUCT_NOT_FOUND))
+                .toProduct();
+    }
+
+    @Override
     public List<Product> findAllById(List<Long> productIds) {
         return repository.findAllById(productIds).stream()
                 .map(ProductEntity::toProduct)
@@ -42,7 +49,19 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
+    public long save(Product product) {
+        ProductEntity saved = repository.save(ProductEntity.create(product));
+        return saved.getId();
+    }
+
+    @Override
     public void saveAll(List<Product> products) {
         repository.saveAll(products.stream().map(ProductEntity::create).toList());
+    }
+
+    @Override
+    public List<Long> update(List<Product> products) {
+        // TODO QueryDsl 로 업데이트 진행
+        return null;
     }
 }

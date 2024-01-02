@@ -1,7 +1,5 @@
 package com.hanghae.hanghaeplus3.product.service;
 
-import com.hanghae.hanghaeplus3.common.handler.LockHandler;
-import com.hanghae.hanghaeplus3.common.handler.TransactionHandler;
 import com.hanghae.hanghaeplus3.order.service.domain.OrderProduct;
 import com.hanghae.hanghaeplus3.order.service.domain.SoldProduct;
 import com.hanghae.hanghaeplus3.product.service.component.OrderManager;
@@ -9,13 +7,11 @@ import com.hanghae.hanghaeplus3.product.service.domain.PopularProduct;
 import com.hanghae.hanghaeplus3.product.service.domain.Product;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 @Slf4j
 @Service
@@ -24,12 +20,6 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final OrderManager orderManager;
-
-    private final LockHandler lockHandler;
-    private final TransactionHandler transactionHandler;
-
-    @Value("${redis.stock.prefix}")
-    private String STOCK_LOCK_PREFIX;
 
     @Transactional(readOnly = true)
     public List<Product> findProducts() {
@@ -48,25 +38,26 @@ public class ProductService {
                 .toList();
     }
 
-    public void requestBuy(List<OrderProduct> orderProducts) {
-        lockHandler.runOnLock(STOCK_LOCK_PREFIX + ":lock", 2000L, 1000L,
-                () -> transactionHandler.runOnWriteTransaction(() -> {
-                    List<Product> products = productRepository.findAllById(orderProducts.stream().map(OrderProduct::getProductId).toList());
-                    buyProducts(products, orderProducts);
-                    productRepository.saveAll(products);
-                    return products;
-                }));
-    }
-
-    private void buyProducts(List<Product> products, List<OrderProduct> orderProducts) {
-        products.forEach(p -> {
-            orderProducts.stream()
-                    .filter(op -> Objects.equals(op.getProductId(), p.getId()))
-                    .findAny()
-                    .ifPresent(op -> {
-                        op.setNameAndPrice(p.getName(), p.getPrice());
-                        p.minusQuantity(op.getQuantity());
-                    });
+    @Transactional(rollbackFor = Exception.class)
+    public void buyProducts(List<OrderProduct> orderProducts) {
+        // 비관적 락을 사용한 경우
+        orderProducts.forEach(orderProduct -> {
+            Product product = productRepository.findByIdForUpdate(orderProduct.getProductId());
+            product.minusQuantity(orderProduct.getQuantity());
+            productRepository.save(product);
         });
+
+        // TODO 낙관적 락으로 update 시 재고 차감 가능한지 DB 로 확인
+//        List<Product> products = productRepository.findAllById(orderProducts.stream().map(OrderProduct::getProductId).toList());
+//        products.forEach(product -> {
+//            orderProducts.stream()
+//                    .filter(op -> Objects.equals(op.getProductId(), product.getId()))
+//                    .findAny()
+//                    .ifPresent(orderProduct -> {
+//                        product.minusQuantity(orderProduct.getQuantity());
+//                    });
+//        });
+//
+//        productRepository.update(products);
     }
 }

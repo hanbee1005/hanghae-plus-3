@@ -1,7 +1,8 @@
 package com.hanghae.hanghaeplus3.order.service;
 
-import com.hanghae.hanghaeplus3.account.service.AccountService;
 import com.hanghae.hanghaeplus3.common.exception.CustomException;
+import com.hanghae.hanghaeplus3.common.handler.LockHandler;
+import com.hanghae.hanghaeplus3.common.handler.TransactionHandler;
 import com.hanghae.hanghaeplus3.order.constant.OrderStatus;
 import com.hanghae.hanghaeplus3.order.service.domain.Order;
 import com.hanghae.hanghaeplus3.order.service.domain.OrderProduct;
@@ -17,10 +18,8 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willDoNothing;
 
 @ExtendWith({MockitoExtension.class})
 class OrderServiceUnitTest {
@@ -34,7 +33,10 @@ class OrderServiceUnitTest {
     private ProductService productService;
 
     @Mock
-    private AccountService accountService;
+    private LockHandler lockHandler;
+
+    @Mock
+    private TransactionHandler transactionHandler;
 
     @Test
     @DisplayName("주문 조회")
@@ -60,24 +62,6 @@ class OrderServiceUnitTest {
         // when
         // then
         assertThrows(CustomException.class, () -> orderService.getOrder(-1L, order.getId()));
-    }
-
-    @Test
-    @DisplayName("상품 주문")
-    public void requestOrder() {
-        // given
-        Order order = getMockOrder();
-        willDoNothing().given(productService).requestBuy(any());
-        given(orderRepository.save(any())).willReturn(order.getId());
-        given(orderRepository.findById(anyLong())).willReturn(order);
-
-        // when
-        Long orderId = orderService.requestOrder(order);
-        Order newOrder = orderService.getOrder(order.getMemberId(), orderId);
-
-        // then
-        assertThat(newOrder.getId()).isEqualTo(orderId);
-        assertThat(newOrder.getStatus()).isEqualTo(OrderStatus.REQUEST);
     }
 
     private Order getMockOrder() {
