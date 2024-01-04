@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: ./
+      args:
+        - SPRING_PROFILE=dev
+    image: ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}
+    ports:
+      - "8080:8080"  # Spring Boot 애플리케이션 포트 매핑
+    depends_on:
+      - mysql
+      - redis
+    environment:
+      - DEV_DB_URL=jdbc:mysql://mysql:3306/hanghae
+      - DEV_DB_USERNAME=root
+      - DEV_DB_PASSWORD=password
+      - DEV_REDIS_HOST=redis
+
+  mysql:
+    image: mysql:8.0  # MySQL 이미지 버전
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_DATABASE=hanghae
+      - MYSQL_ROOT_PASSWORD=password
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  redis:
+    image: redis:alpine  # Redis 이미지 버전
+    ports:
+      - "6379:6379"
+
+volumes:
+  mysql-data:
