@@ -54,6 +54,12 @@ dependencies {
     annotationProcessor "jakarta.annotation:jakarta.annotation-api"
     annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 
+    // log
+    // 로그백 의존성
+    implementation 'ca.pjer:logback-awslogs-appender:1.6.0'
+    // 프로퍼티 제어 in xml
+    implementation 'org.codehaus.janino:janino:3.1.7'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.projectlombok:lombok:1.18.28'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.28'
