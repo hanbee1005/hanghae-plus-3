@@ -5,7 +5,7 @@ services:
       context: ./
       args:
         - SPRING_PROFILE=dev
-    image: ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}
+#    image: ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}
     ports:
       - "8080:8080"  # Spring Boot 애플리케이션 포트 매핑
     depends_on:
@@ -25,10 +25,12 @@ services:
       - MYSQL_DATABASE=hanghae
       - MYSQL_ROOT_PASSWORD=password
     volumes:
-      - mysql-data:/var/lib/mysql
+      - ./db/data:/var/lib/mysql
+      - ./db/mysql/init:/docker-entrypoint-initdb.d
+    restart: always
 
   redis:
-    image: redis:alpine  # Redis 이미지 버전
+    image: redis:latest  # Redis 이미지 버전
     ports:
       - "6379:6379"
 
