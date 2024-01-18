@@ -69,6 +69,8 @@ class ProductServiceUnitTest {
         assertThat(popularProducts.size()).isLessThanOrEqualTo(count);
     }
 
+    // TODO 인기 상품 목록 조회 단 1회만 호출되는지 확인
+
     private List<Product> getMockProducts() {
         return List.of(
                 Product.builder().id(1L).name("itemA").price(1000).quantity(10).build(),
