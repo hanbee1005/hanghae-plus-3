@@ -39,8 +39,6 @@ com.hanghae.hanghaeplus3
     │   └── service
     │       ├── AccountRepository.java
     │       ├── AccountService.java
-    │       ├── component
-    │       │   └── MemberReader.java
     │       └── domain
     │           └── Account.java
     ├── config
