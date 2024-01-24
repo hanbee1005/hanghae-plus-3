@@ -7,7 +7,9 @@ import com.hanghae.hanghaeplus3.product.service.domain.PopularProduct;
 import com.hanghae.hanghaeplus3.product.service.domain.Product;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ProductService {
+    private final String POPULAR_PRODUCTS = "POPULAR_PRODUCTS";
 
     private final ProductRepository productRepository;
     private final OrderManager orderManager;
@@ -27,7 +30,13 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    @Cacheable("POPULAR_PRODUCTS")
+    @Scheduled(cron = "0 0 0 * * *") // 매일 00시
+    @CacheEvict(POPULAR_PRODUCTS) // AOP 로 해당 로직이 수행될 때 Cache 를 날린다."
+    public void evictPopularItemsCache() {
+        log.info("{} cache evict", POPULAR_PRODUCTS);
+    }
+
+    @Cacheable(POPULAR_PRODUCTS)
     @Transactional(readOnly = true)
     public List<PopularProduct> findPopulars(LocalDate searchDate, int duration, int count) {
         List<SoldProduct> products = orderManager.getOrderProductsIn(searchDate, duration, count);
