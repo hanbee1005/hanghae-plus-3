@@ -64,7 +64,9 @@ com.hanghae.hanghaeplus3
 - 주요 포인트
   - 동시성 테스트
     - 따닥 방지
+      - Redis Lock 사용 (분산 환경 및 DB Connection 보호)
     - 동시 재고 차감 방지
+      - 비관적 락 사용 -> 추후 낙관적 락으로 변경 예정
   - 캐시
     - 인기 상품 조회
 
