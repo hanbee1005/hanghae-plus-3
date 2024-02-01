@@ -71,3 +71,5 @@ com.hanghae.hanghaeplus3
     - 인기 상품 조회 ->  ```@Cacheable```을 사용하여 캐싱하고 매일 한번 스케줄링으로 캐시를 삭제
 
 ### 통합 모니터링 시스템 구축
+- logback console, file 로그 남기기
+- CloudWatch 연동
