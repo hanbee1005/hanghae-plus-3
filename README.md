@@ -73,3 +73,6 @@ com.hanghae.hanghaeplus3
 ### 통합 모니터링 시스템 구축
 - logback console, file 로그 남기기
 - CloudWatch 연동
+
+### 부하테스트 진행
+- JMeter 적용
