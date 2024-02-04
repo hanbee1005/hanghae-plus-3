@@ -76,3 +76,4 @@ com.hanghae.hanghaeplus3
 
 ### 부하테스트 진행
 - JMeter 적용
+- 인기상품 조회, 주문 관련 API 테스트 시나리오 작성
