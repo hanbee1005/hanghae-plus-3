@@ -70,10 +70,10 @@ com.hanghae.hanghaeplus3
   - 캐시
     - 인기 상품 조회 ->  ```@Cacheable```을 사용하여 캐싱하고 매일 한번 스케줄링으로 캐시를 삭제
 
-### 통합 모니터링 시스템 구축
+## Chapter 3. 통합 모니터링 시스템 구축
 - logback console, file 로그 남기기
 - CloudWatch 연동
 
-### 부하테스트 진행
+## Chapter 4. 부하테스트 진행
 - JMeter 적용
 - 인기상품 조회, 주문 관련 API 테스트 시나리오 작성
